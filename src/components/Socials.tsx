@@ -14,7 +14,7 @@ const SocialItem = (props: SocialProps) => {
   return (
     <a
       class={`inline-flex text-current px-3 py-2 mt-2 mr-2 rounded-md transition-colors decoration-none ${data.class} hover:text-white`}
-      bg="gray-500/10 dark:gray-50/10"
+      bg="gray-500/10 dark:gray-400/10"
       href={data.link}
       target="_blank"
     >
