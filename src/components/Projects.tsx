@@ -3,7 +3,7 @@ import { Project } from "./Project";
 
 const fetchRepos = async (id: string) =>
   (
-    await fetch(`https://api.nn.ci/github/users/${id}/repos?per_page=100`)
+    await fetch(`https://api.nn.ci/github/users/${id}/repos?per_page=100&sort=pushed`)
   ).json();
 
 export const Projects = () => {
@@ -12,7 +12,7 @@ export const Projects = () => {
     <>
       <h2 class="flex items-center mt-14 mb-4 font-semibold text-3xl">
         <span flex-1 class="outfit">
-          Projects
+          Recent Projects
         </span>
         <div
           onClick={() => {
@@ -25,7 +25,7 @@ export const Projects = () => {
       </h2>
       <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
         <Show when={repos.loading}>
-          <h1>Loding...</h1>
+          <h3>Loding...</h3>
         </Show>
         <For each={repos()}>
           {(item) => {
