@@ -1,16 +1,13 @@
 import { For, Show } from "solid-js";
 
 interface SocialProps {
-  data: {
-    icon: string;
-    link: string;
-    class: string;
-    text?: string;
-  };
+  icon: string;
+  link: string;
+  class: string;
+  text?: string;
 }
 
-const SocialItem = (props: SocialProps) => {
-  const { data } = props;
+const SocialItem = (data: SocialProps) => {
   return (
     <a
       class={`inline-flex text-current px-3 py-2 mt-2 mr-2 rounded-md transition-colors decoration-none ${data.class} hover:text-white`}
@@ -30,7 +27,7 @@ const SocialItem = (props: SocialProps) => {
   );
 };
 
-const socialLists = [
+const socialLists: SocialProps[] = [
   {
     text: "Github",
     link: "https://github.com/Xhofe",
@@ -61,12 +58,18 @@ const socialLists = [
     icon: "i-ri-bilibili-fill",
     class: "hover:bg-[#fb7299]",
   },
+  {
+    text: "",
+    link: "mailto:i@nn.ci",
+    icon: "i-ri-mail-fill",
+    class: "hover:bg-[#00b0ff]",
+  },
 ];
 
 export const Socials = () => {
   return (
     <div mt-4>
-      <For each={socialLists}>{(item) => <SocialItem data={item} />}</For>
+      <For each={socialLists}>{(item) => <SocialItem {...item} />}</For>
     </div>
   );
 };
