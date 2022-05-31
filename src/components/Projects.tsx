@@ -3,7 +3,7 @@ import { Project } from "./Project";
 
 const fetchRepos = async (id: string) =>
   (
-    await fetch(`https://api.nn.ci/github/users/${id}/repos?per_page=100&sort=pushed`)
+    await fetch(`https://api.nn.ci/github/users/${id}/repos?per_page=10&sort=pushed`)
   ).json();
 
 export const Projects = () => {
