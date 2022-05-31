@@ -4,9 +4,9 @@ import { useLocalStorage } from "~/hooks/useLocalStorage";
 const sentences = ["Developer / Master", "I like making interesting projects."];
 
 const colorIcons = {
-  auto: "i-carbon-window-auto",
-  light: "i-carbon-sun",
-  dark: "i-carbon-moon",
+  auto: "i-twemoji-snowflake",
+  light: "i-twemoji-bright-button",
+  dark: "i-twemoji-first-quarter-moon-face",
 };
 
 type ColorMode = "auto" | "light" | "dark";
