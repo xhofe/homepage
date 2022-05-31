@@ -10,8 +10,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.5",
-    "@iconify-json/logos": "^1.1.5",
+    "@iconify-json/jam": "^1.1.1",
     "@iconify-json/ri": "^1.1.2",
     "@iconify-json/twemoji": "^1.1.4",
     "@types/node": "^17.0.31",

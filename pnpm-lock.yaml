@@ -1,8 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@iconify-json/carbon': ^1.1.5
-  '@iconify-json/logos': ^1.1.5
+  '@iconify-json/jam': ^1.1.1
   '@iconify-json/ri': ^1.1.2
   '@iconify-json/twemoji': ^1.1.4
   '@types/node': ^17.0.31
@@ -16,8 +15,7 @@ dependencies:
   solid-js: registry.npmmirror.com/solid-js/1.4.3
 
 devDependencies:
-  '@iconify-json/carbon': registry.npmmirror.com/@iconify-json/carbon/1.1.5
-  '@iconify-json/logos': registry.npmmirror.com/@iconify-json/logos/1.1.5
+  '@iconify-json/jam': registry.npmmirror.com/@iconify-json/jam/1.1.1
   '@iconify-json/ri': registry.npmmirror.com/@iconify-json/ri/1.1.2
   '@iconify-json/twemoji': registry.npmmirror.com/@iconify-json/twemoji/1.1.4
   '@types/node': registry.npmmirror.com/@types/node/17.0.36
@@ -418,18 +416,10 @@ packages:
       to-fast-properties: registry.npmmirror.com/to-fast-properties/2.0.0
     dev: true
 
-  registry.npmmirror.com/@iconify-json/carbon/1.1.5:
-    resolution: {integrity: sha512-ENl8CIEo+7JcRzpJ/58i+dDc3fkNOO7gyNGg4S4JN5cAiVpvltYTVO86Oei7rpl8bKypJ0vk3B0BbzzTw7DclA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify-json/carbon/-/carbon-1.1.5.tgz}
-    name: '@iconify-json/carbon'
-    version: 1.1.5
-    dependencies:
-      '@iconify/types': registry.npmmirror.com/@iconify/types/1.1.0
-    dev: true
-
-  registry.npmmirror.com/@iconify-json/logos/1.1.5:
-    resolution: {integrity: sha512-PVBTp7fZ7zNBDdCCqN9IqJt78jO4f8agtiNVwxWfflmEGi3+Fu95Jre0CYAPDalyy862r46DXg8AiCoNENQ3SQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify-json/logos/-/logos-1.1.5.tgz}
-    name: '@iconify-json/logos'
-    version: 1.1.5
+  registry.npmmirror.com/@iconify-json/jam/1.1.1:
+    resolution: {integrity: sha512-8fOgl3Xde3qtUuVnlXPDEvI4odTPSjjdh5ixTZ5rwpO8CI2HQFgXFoxn0Ayt926rVTK03JHzsiukq6M90J9RNA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@iconify-json/jam/-/jam-1.1.1.tgz}
+    name: '@iconify-json/jam'
+    version: 1.1.1
     dependencies:
       '@iconify/types': registry.npmmirror.com/@iconify/types/1.1.0
     dev: true

@@ -46,8 +46,8 @@ const socialLists = [
   {
     text: "",
     link: "https://stackoverflow.com/users/10545416/xhofe",
-    icon: "i-logos-stackoverflow-icon",
-    class: "hover:bg-gradient-to-r from-#ff820022 to-[#ff820099]",
+    icon: "i-jam-stackoverflow",
+    class: "hover:bg-#ff8200",
   },
   {
     text: "",

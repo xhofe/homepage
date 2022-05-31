@@ -14,7 +14,7 @@ const colorIcons = {
 
 type ColorMode = "auto" | "light" | "dark";
 
-export const Title = () => {
+export const Header = () => {
   const [color, setColor] = useLocalStorage<ColorMode>("color-scheme", "auto");
 
   const switchColor = () => {
