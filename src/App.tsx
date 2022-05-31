@@ -1,10 +1,10 @@
 import { Component } from 'solid-js';
-import Hello from '~/components/Hello';
+import { Title } from './components/Title';
 
 const App: Component = () => {
   return (
-    <div>
-      <Hello />
+    <div class='mx-auto max-w-64em' p="x-6 y-6vh">
+      <Title />
     </div>
   );
 };
