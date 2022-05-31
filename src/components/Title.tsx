@@ -47,7 +47,7 @@ export const Title = () => {
           class={colorIcons[color()]}
           cursor="pointer"
           opacity="80"
-          hover="opacity-100"
+          hover="op-100"
           onClick={switchColor}
         ></div>
       </div>
