@@ -16,6 +16,9 @@ type ColorMode = "auto" | "light" | "dark";
 
 export const Header = () => {
   const [color, setColor] = useLocalStorage<ColorMode>("color-scheme", "auto");
+  if (!Object.keys(colorIcons).includes(color())) {
+    setColor("auto");
+  }
   const switchColor = () => {
     const colors = Object.keys(colorIcons);
     const index = colors.indexOf(color());
