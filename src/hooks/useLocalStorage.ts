@@ -11,8 +11,11 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
       try {
         // Get from local storage by key
         const item = window.localStorage.getItem(key);
+        if (!item) {
+          return initialValue;
+        }
         // Parse stored json or if none return initialValue
-        return item ? JSON.parse(item) : initialValue;
+        return typeof item === "string" ? item : JSON.parse(item);
       } catch (error) {
         // If error also return initialValue
         console.log(error);
@@ -31,7 +34,12 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
       setStoredValue(() => valueToStore);
       // Save to local storage
       if (typeof window !== "undefined") {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        window.localStorage.setItem(
+          key,
+          typeof valueToStore === "string"
+            ? valueToStore
+            : JSON.stringify(valueToStore)
+        );
       }
     } catch (error) {
       // A more advanced implementation would handle the error case

@@ -6,15 +6,16 @@
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" type="image/ico" href="/src/assets/favicon.ico" />
     <title>Noah Hsu</title>
-    <link rel="stylesheet" href="/src/assets/main.css">
+    <link rel="stylesheet" href="/src/assets/main.css" />
     <script>
       (function () {
         const prefersDark =
           window.matchMedia &&
           window.matchMedia("(prefers-color-scheme: dark)").matches;
         const setting = localStorage.getItem("color-scheme") || "auto";
-        if (setting === "dark" || (prefersDark && setting !== "light"))
+        if (setting === "dark" || (prefersDark && setting !== "light")) {
           document.documentElement.classList.toggle("dark", true);
+        }
       })();
     </script>
   </head>
