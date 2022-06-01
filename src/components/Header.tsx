@@ -1,4 +1,4 @@
-import { For } from "solid-js";
+import { For, onCleanup } from "solid-js";
 import { useLocalStorage } from "~/hooks/useLocalStorage";
 import { Data } from "~/data";
 
@@ -35,6 +35,20 @@ export const Header = () => {
       document.documentElement.classList.toggle("dark", false);
     }
   };
+
+  const listener = () => {
+    setClass(color());
+  };
+
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", listener);
+
+  onCleanup(() => {
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .removeEventListener("change", listener);
+  });
 
   return (
     <div>
