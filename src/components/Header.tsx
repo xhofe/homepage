@@ -1,10 +1,8 @@
 import { For } from "solid-js";
 import { useLocalStorage } from "~/hooks/useLocalStorage";
+import { Data } from "~/data";
 
-const sentences = [
-  "Developer / Master",
-  "It is always morning somewhere in the world.",
-];
+const sentences = Data.sentences;
 
 const colorIcons = {
   auto: "i-twemoji-snowflake",
