@@ -5,9 +5,10 @@ interface Data {
   sentences: string[];
   socials: SocialProps[];
   github: string;
+  avatar?: string;
 }
 
-export const Data: Data = {
+export const data: Data = {
   name: "Noah Hsu",
   sentences: [
     "Developer / Master's student",
@@ -52,4 +53,5 @@ export const Data: Data = {
     },
   ],
   github: "Xhofe",
+  avatar:"https://nn.ci/images/avatar.svg",
 };

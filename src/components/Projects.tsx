@@ -1,5 +1,5 @@
 import { createResource, For, Show } from "solid-js";
-import { Data } from "~/data";
+import { data } from "~/data";
 import { Project } from "./Project";
 
 const fetchRepos = async (id: string) =>
@@ -8,7 +8,7 @@ const fetchRepos = async (id: string) =>
   ).json();
 
 export const Projects = () => {
-  const [repos] = createResource(Data.github, fetchRepos);
+  const [repos] = createResource(data.github, fetchRepos);
   return (
     <>
       <h2 class="flex items-center mt-14 mb-4 font-semibold text-3xl">

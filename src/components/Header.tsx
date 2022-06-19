@@ -1,8 +1,8 @@
 import { For, onCleanup } from "solid-js";
 import { useLocalStorage } from "~/hooks/useLocalStorage";
-import { Data } from "~/data";
+import { data } from "~/data";
 
-const sentences = Data.sentences;
+const sentences = data.sentences;
 
 const colorIcons = {
   auto: "i-twemoji-snowflake",
@@ -10,7 +10,7 @@ const colorIcons = {
   dark: "i-twemoji-first-quarter-moon-face",
 };
 
-type ColorMode = "auto" | "light" | "dark";
+type ColorMode = keyof typeof colorIcons;
 
 export const Header = () => {
   const [color, setColor] = useLocalStorage<ColorMode>("color-scheme", "auto");
@@ -50,24 +50,35 @@ export const Header = () => {
       .removeEventListener("change", listener);
   });
 
+  let avatar = `https://github.com/${data.github}.png`;
+  if (data.avatar) {
+    avatar = data.avatar;
+  }
+
   return (
     <div>
-      <div display="flex">
-        <div text="4xl" font="bold">
-          Hello,
+      <div display="flex" flex="row">
+        <div m="r-4">
+          <img src={avatar} alt="avatar" h="20" class="rounded-40%" />
         </div>
-        <div
-          text="2xl"
-          class={colorIcons[color()]}
-          cursor="pointer"
-          opacity="80"
-          hover="op-100"
-          onClick={switchColor}
-        ></div>
-      </div>
-
-      <div text="4xl" p="y-1" font="bold">
-        I'm Noah Hsu.
+        <div>
+          <div display="flex">
+            <div text="4xl" font="bold">
+              Hello,
+            </div>
+            <div
+              text="2xl"
+              class={colorIcons[color()]}
+              cursor="pointer"
+              opacity="80"
+              hover="op-100"
+              onClick={switchColor}
+            ></div>
+          </div>
+          <div text="4xl" p="y-1" font="bold">
+            I'm Noah Hsu.
+          </div>
+        </div>
       </div>
       <For each={sentences}>{(item) => <p text="md">{item}</p>}</For>
     </div>

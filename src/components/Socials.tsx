@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import { Data } from "~/data";
+import { data } from "~/data";
 
 export interface SocialProps {
   icon: string;
@@ -28,7 +28,7 @@ const SocialItem = (data: SocialProps) => {
   );
 };
 
-const socialLists: SocialProps[] = Data.socials;
+const socialLists: SocialProps[] = data.socials;
 
 export const Socials = () => {
   return (
