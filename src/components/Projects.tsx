@@ -11,7 +11,7 @@ export const Projects = () => {
   const [repos] = createResource(data.github, fetchRepos);
   return (
     <>
-      <h2 class="flex items-center mt-14 mb-4 font-semibold text-3xl">
+      <h2 class="flex items-center mt-8 mb-4 font-semibold text-3xl">
         <span flex-1 class="outfit">
           Recent Projects
         </span>

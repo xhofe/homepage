@@ -9,6 +9,7 @@ const App: Component = () => {
     <div class="mx-auto max-w-64em" p="x-6 y-6vh">
       <Header />
       <Socials />
+      <img w="full" src="https://jsd.nn.ci/gh/Xhofe/Xhofe@main/out/github-contribution-grid-snake.svg" />
       <Projects />
       <Footer />
     </div>
