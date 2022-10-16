@@ -51,7 +51,13 @@ export const data: Data = {
       icon: "i-ri-mail-fill",
       class: "hover:bg-[#00b0ff]",
     },
+    {
+      text: "",
+      link: "https://sp.nn.ci",
+      icon: "i-twemoji:money-bag",
+      class: "hover:bg-red-4",
+    },
   ],
   github: "Xhofe",
-  avatar:"https://nn.ci/images/avatar.svg",
+  avatar: "https://nn.ci/images/avatar.svg",
 };
