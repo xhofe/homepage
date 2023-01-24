@@ -12,7 +12,7 @@ export const data: Data = {
   name: "Noah Hsu",
   sentences: [
     "Developer / Master's student",
-    "It is always morning somewhere in the world.",
+    "The best time to plant a tree was 20 years ago. The second best time is now.",
   ],
   socials: [
     {
