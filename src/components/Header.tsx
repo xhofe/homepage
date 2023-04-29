@@ -76,7 +76,7 @@ export const Header = () => {
             ></div>
           </div>
           <div text="4xl" p="y-1" font="bold">
-            I'm Noah Hsu.
+            I'm {data.name}.
           </div>
         </div>
       </div>
