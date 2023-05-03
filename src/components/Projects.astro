@@ -1,0 +1,64 @@
+---
+import Project from "./Project.astro";
+const projects = [
+  {
+    repo: "alist-org/alist",
+    desc: "A file list program that supports multiple storage, powered by Gin and Solidjs.",
+    icon: "i-twemoji-open-file-folder",
+  },
+  {
+    repo: "Xhofe/gh-contributors",
+    desc: "⭐ Generate svg of contributors, multiple repo supported",
+    icon: "i-twemoji-glowing-star",
+  },
+  {
+    repo: "Xhofe/solid-contextmenu",
+    desc: "Add a context menu to your solidjs app with ease. Inspired by react-contexify but for Solidjs.",
+    icon: "i-twemoji-love-you-gesture-light-skin-tone",
+  },
+  {
+    repo: "Xhofe/ipa-renamer",
+    desc: "A command line tool for renaming your ipa files quickly and easily.",
+    icon: "i-twemoji-hammer-and-wrench",
+  },
+  {
+    repo: "Xhofe/aper",
+    desc: "A simple music player built with solid.js and howler.js.",
+    icon: "i-twemoji-musical-notes",
+  },
+  {
+    repo: "Xhofe/solid-iconify",
+    desc: "A icon component set for SolidJS using Iconify.",
+    icon: "i-twemoji-smiling-face-with-horns",
+  },
+  {
+    repo: "alist-org/alist-web",
+    desc: "The front end of Alist V3",
+    icon: "i-twemoji-open-file-folder",
+  },
+  {
+    repo: "Xhofe/imgbed",
+    desc: "Multi-interface/custom interface file/picture upload",
+    icon: "i-twemoji-framed-picture",
+  },
+];
+---
+
+<h3 class="flex items-center mt-8 mb-4 font-semibold text-2xl">
+  <span flex-1 class="outfit">💻Projects</span>
+  <a
+    href="https://github.com/Xhofe"
+    target="_blank"
+    color-white
+    class="op-50 ml-2 hover:op-100 transition-opacity cursor-pointer"
+  >
+    <div class="m-2 i-ri-arrow-right-up-line"></div>
+  </a>
+</h3>
+<div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
+  {
+    projects.map((project) => {
+      return <Project {...project} />;
+    })
+  }
+</div>

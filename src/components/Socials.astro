@@ -1,0 +1,53 @@
+---
+import Social from "./Social.astro";
+const socials = [
+  {
+    text: "Github",
+    link: "https://github.com/Xhofe",
+    icon: "i-ri-github-fill",
+    classes: "hover:bg-gray-700 dark:hover:bg-white dark:hover:text-gray-900",
+  },
+  {
+    text: "Blog",
+    link: "https://blog.nn.ci",
+    icon: "i-ri-book-2-line",
+    classes: "hover:bg-gradient-to-r from-[#fd5949] to-[#d6249f]",
+  },
+  {
+    text: "",
+    link: "https://stackoverflow.com/users/10545416/xhofe",
+    icon: "i-jam-stackoverflow",
+    classes: "hover:bg-#ff8200",
+  },
+  {
+    text: "",
+    link: "https://twitter.com/Xh0fe",
+    icon: "i-ri-twitter-fill",
+    classes: "hover:bg-[#00ACEE]",
+  },
+  {
+    text: "",
+    link: "https://space.bilibili.com/1520762073",
+    icon: "i-ri-bilibili-fill",
+    classes: "hover:bg-[#fb7299]",
+  },
+  {
+    text: "",
+    link: "mailto:i@nn.ci",
+    icon: "i-ri-mail-fill",
+    classes: "hover:bg-[#00b0ff]",
+  },
+  {
+    text: "",
+    link: "https://sp.nn.ci",
+    icon: "i-twemoji:money-bag",
+    classes: "hover:bg-red-4",
+  },
+];
+---
+
+{
+  socials.map((social) => {
+    return <Social {...social} />;
+  })
+}

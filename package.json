@@ -1,0 +1,21 @@
+{
+  "name": "homepage",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^2.3.2"
+  },
+  "devDependencies": {
+    "@iconify-json/jam": "^1.1.4",
+    "@iconify-json/ri": "^1.1.8",
+    "@iconify-json/twemoji": "^1.1.11",
+    "unocss": "^0.51.8"
+  }
+}
