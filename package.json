@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@iconify-json/jam": "^1.1.4",
+    "@iconify-json/material-icon-theme": "^1.2.38",
     "@iconify-json/ri": "^1.1.8",
     "@iconify-json/twemoji": "^1.1.11",
     "unocss": "^0.51.8"
