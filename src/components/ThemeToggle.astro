@@ -117,6 +117,10 @@
         {
           duration: 520,
           easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          // Keep the final clip-path so the layer stays clipped until the
+          // view transition is fully torn down — prevents a 1-frame flash
+          // of the opaque OLD snapshot when switching dark → light.
+          fill: 'forwards',
           pseudoElement: isDark
             ? '::view-transition-new(root)'
             : '::view-transition-old(root)',
