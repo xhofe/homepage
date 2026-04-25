@@ -1,9 +1,28 @@
 ---
+const iconList = "astro,bash,devto,discord,docker,electron,git,github,githubactions,go,html,idea,java,js,linux,md,mysql,netlify,nextjs,nginx,nodejs,ps,planetscale,postman,py,pytorch,qt,react,redis,ros,rust,sqlite,stackoverflow,solidjs,svg,tailwind,tauri,threejs,twitter,ts,vercel,vite,vscode,vue,workers,zig";
 ---
 
-<h3 text-2xl>⚡Skills</h3>
-<img
-  w-full
-  src="https://skillicons.dev/icons?perline=14&i=astro,bash,devto,discord,docker,electron,git,github,githubactions,go,html,idea,java,js,linux,md,mysql,netlify,nextjs,nginx,nodejs,ps,planetscale,postman,py,pytorch,qt,react,redis,ros,rust,sqlite,stackoverflow,solidjs,svg,tailwind,tauri,threejs,twitter,ts,vercel,vite,vscode,vue,workers,zig"
-  alt=""
-/>
+<section>
+  <h3 class="flex items-center mt-10 mb-4 font-semibold text-2xl tracking-tight">
+    <span class="i-ri-flashlight-line mr-2 text-amber-500"></span>
+    <span class="flex-1">Skills</span>
+    <span class="text-xs font-normal op-50">{iconList.split(",").length} stacks</span>
+  </h3>
+
+  <div class="surface rounded-2xl p-4 sm:p-5">
+    {/* Light variant */}
+    <img
+      class="w-full block dark:hidden"
+      loading="lazy"
+      src={`https://skillicons.dev/icons?perline=14&theme=light&i=${iconList}`}
+      alt="Tech stack"
+    />
+    {/* Dark variant */}
+    <img
+      class="w-full hidden dark:block"
+      loading="lazy"
+      src={`https://skillicons.dev/icons?perline=14&theme=dark&i=${iconList}`}
+      alt="Tech stack"
+    />
+  </div>
+</section>

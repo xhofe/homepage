@@ -3,9 +3,9 @@ import Social from "./Social.astro";
 const socials = [
   {
     text: "Github",
-    link: "https://github.com/Xhofe",
+    link: "https://github.com/xhofe",
     icon: "i-ri-github-fill",
-    classes: "hover:bg-gray-700 dark:hover:bg-white dark:hover:text-gray-900",
+    classes: "hover:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-900",
   },
   {
     text: "Blog",
@@ -41,13 +41,11 @@ const socials = [
     text: "",
     link: "https://github.com/sponsors/xhofe",
     icon: "i-material-icon-theme:github-sponsors",
-    classes: "hover:bg-white",
+    classes: "hover:bg-pink-500",
   },
 ];
 ---
 
-{
-  socials.map((social) => {
-    return <Social {...social} />;
-  })
-}
+<div class="flex flex-wrap gap-2.5">
+  {socials.map((social) => <Social {...social} />)}
+</div>

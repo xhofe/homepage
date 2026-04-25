@@ -1,0 +1,138 @@
+---
+// Theme toggle with circular reveal animation via View Transitions API
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle theme"
+  title="Toggle theme"
+  class="icon-btn relative overflow-hidden group"
+>
+  <span class="sr-only">Toggle theme</span>
+  <span class="icon sun i-ri-sun-line text-lg text-amber-500"></span>
+  <span class="icon moon i-ri-moon-clear-line text-lg text-indigo-300"></span>
+</button>
+
+<style>
+  #theme-toggle .icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: inline-block;
+    transition:
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.4s ease;
+    will-change: transform, opacity;
+  }
+  /* Default (light): show sun, hide moon */
+  #theme-toggle .sun {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  #theme-toggle .moon {
+    transform: rotate(-90deg) scale(0.4);
+    opacity: 0;
+  }
+  /* Dark mode: hide sun, show moon */
+  :global(html.dark) #theme-toggle .sun {
+    transform: rotate(90deg) scale(0.4);
+    opacity: 0;
+  }
+  :global(html.dark) #theme-toggle .moon {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+
+  #theme-toggle:hover {
+    transform: translateY(-1px);
+  }
+  #theme-toggle:active {
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'theme';
+
+  function applyTheme(theme: 'light' | 'dark') {
+    const root = document.documentElement;
+    if (theme === 'dark') root.classList.add('dark');
+    else root.classList.remove('dark');
+    root.dataset.theme = theme;
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch {}
+  }
+
+  function getNextTheme(): 'light' | 'dark' {
+    return document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+  }
+
+  // Mark whether the browser supports View Transitions (used by CSS fallback transitions)
+  if ('startViewTransition' in document) {
+    document.documentElement.classList.add('vt-supported');
+  }
+
+  function toggleTheme(event: MouseEvent) {
+    const next = getNextTheme();
+    const isDark = next === 'dark';
+
+    // Origin point: the click coordinate (or button center if invoked via keyboard)
+    const target = event.currentTarget as HTMLElement | null;
+    let x = event.clientX;
+    let y = event.clientY;
+    if (target && (event.clientX === 0 && event.clientY === 0)) {
+      const rect = target.getBoundingClientRect();
+      x = rect.left + rect.width / 2;
+      y = rect.top + rect.height / 2;
+    }
+
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    // Fallback: no View Transitions support
+    // @ts-ignore - startViewTransition is not yet in lib.dom.d.ts everywhere
+    if (typeof document.startViewTransition !== 'function') {
+      applyTheme(next);
+      return;
+    }
+
+    // @ts-ignore
+    const transition = document.startViewTransition(() => {
+      applyTheme(next);
+    });
+
+    transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`,
+      ];
+      document.documentElement.animate(
+        {
+          clipPath: isDark ? clipPath : [...clipPath].reverse(),
+        },
+        {
+          duration: 520,
+          easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+          pseudoElement: isDark
+            ? '::view-transition-new(root)'
+            : '::view-transition-old(root)',
+        }
+      );
+    });
+  }
+
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', toggleTheme as EventListener);
+
+  // React to system theme changes when user hasn't explicitly chosen
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  media.addEventListener?.('change', (e) => {
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+</script>

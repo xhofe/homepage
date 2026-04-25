@@ -3,28 +3,100 @@ import Layout from "../layouts/Layout.astro";
 import Socials from "../components/Socials.astro";
 import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 ---
 
-<Layout title="Hi, I'm Andy Hsu">
-  <main>
-    <h1>Hello, I'm <span class="text-gradient">Andy Hsu</span></h1>
-    <p class="instructions">
-      👦<strong>Full Stack</strong> Developer /
-      <code>Master</code>'s student<br />
-      The best time to plant a tree was 20 years ago. The second best time is <strong
-        >now</strong
-      >.
-    </p>
-    <Socials />
-    <img
-      w-full
-      src="https://jsd.nn.ci/gh/Xhofe/Xhofe@main/out/github-snake-dark.svg"
-    />
-    <Projects />
-    <Skills />
-    <footer mt-12>
-      <p text-sm op-40>Andy Hsu © 2022</p>
+<Layout title="Andy Hsu — Full Stack Developer">
+  <main class="mx-auto max-w-3xl px-5 sm:px-6 py-10 sm:py-14">
+    {/* Top bar */}
+    <header class="flex items-center justify-between mb-10 rise" style="animation-delay: 40ms;">
+      <a href="/" class="flex items-center gap-2.5 decoration-none text-current">
+        <img
+          src="https://nn.ci/images/avatar.svg"
+          alt="Andy Hsu"
+          class="w-9 h-9 rounded-full ring-2 ring-brand/40 dark:ring-brand-300/40 shadow-sm"
+        />
+        <span class="font-semibold tracking-tight">Andy Hsu</span>
+      </a>
+      <nav class="flex items-center gap-2">
+        <ThemeToggle />
+      </nav>
+    </header>
+
+    {/* Hero */}
+    <section class="mb-12">
+      <div class="rise" style="animation-delay: 80ms;">
+        <span class="chip text-emerald-700 dark:text-emerald-300 border-emerald-500/30 dark:border-emerald-400/30 bg-emerald-500/10">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          Available for collaboration
+        </span>
+      </div>
+
+      <h1
+        class="rise mt-5 font-extrabold tracking-tight text-5xl sm:text-6xl leading-[1.05]"
+        style="animation-delay: 140ms;"
+      >
+        Hi, I'm <span class="text-gradient">Andy Hsu</span>.
+      </h1>
+
+      <p
+        class="rise mt-5 text-lg leading-relaxed op-80 max-w-2xl"
+        style="animation-delay: 220ms;"
+      >
+        👨‍💻 <strong class="text-brand-600 dark:text-brand-300 font-semibold">Full Stack</strong> developer &nbsp;/&nbsp;
+        <code class="px-1.5 py-0.5 rounded-md bg-brand/10 text-brand-600 dark:text-brand-300 text-[0.85em] font-medium">Master</code>'s
+        student.
+        <br class="hidden sm:block" />
+        The best time to plant a tree was 20 years ago. The second best time is
+        <strong class="text-brand-600 dark:text-brand-300 font-semibold">now</strong>.
+      </p>
+
+      <div class="rise mt-7" style="animation-delay: 300ms;">
+        <Socials />
+      </div>
+    </section>
+
+    {/* Contributions snake */}
+    <section class="rise mb-12 surface rounded-2xl p-3 sm:p-4 overflow-hidden" style="animation-delay: 380ms;">
+      <img
+        class="w-full block dark:hidden"
+        loading="lazy"
+        src="https://jsd.nn.ci/gh/xhofe/xhofe@main/out/github-snake.svg"
+        alt="GitHub contributions"
+      />
+      <img
+        class="w-full hidden dark:block"
+        loading="lazy"
+        src="https://jsd.nn.ci/gh/xhofe/xhofe@main/out/github-snake-dark.svg"
+        alt="GitHub contributions"
+      />
+    </section>
+
+    {/* Projects */}
+    <div class="rise" style="animation-delay: 460ms;">
+      <Projects />
+    </div>
+
+    {/* Skills */}
+    <div class="rise" style="animation-delay: 540ms;">
+      <Skills />
+    </div>
+
+    {/* Footer */}
+    <footer class="mt-16 pt-8 border-t border-black/5 dark:border-white/10 flex items-center justify-between text-sm op-60">
+      <p>© {new Date().getFullYear()} Andy Hsu</p>
+      <a
+        href="#"
+        onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"
+        class="inline-flex items-center gap-1 decoration-none text-current hover:op-100 transition-opacity"
+      >
+        Back to top <span class="i-ri-arrow-up-line"></span>
+      </a>
     </footer>
+
     <style is:inline>
       .floatingchat-container-wrap,
       .floating-chat-kofi-popup-iframe {
@@ -34,53 +106,15 @@ import Skills from "../components/Skills.astro";
     </style>
     <script
       is:inline
-      src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"
-    ></script>
+      src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
     <script>
+      // @ts-ignore - global injected by ko-fi script
       kofiWidgetOverlay.draw("xhofe", {
         type: "floating-chat",
         "floating-chat.donateButton.text": "Support Me",
-        "floating-chat.donateButton.background-color": "#00b9fe",
+        "floating-chat.donateButton.background-color": "#7c5cff",
         "floating-chat.donateButton.text-color": "#fff",
       });
     </script>
   </main>
 </Layout>
-
-<style>
-  main {
-    margin: auto;
-    padding: 1.5rem;
-    max-width: 94ch;
-  }
-  h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin: 0;
-  }
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-  .instructions {
-    line-height: 1.6;
-    margin: 1rem 0;
-    /* border: 1px solid rgba(var(--accent), 50%); */
-    /* padding: 1rem; */
-    border-radius: 0.6rem;
-  }
-  .instructions code {
-    font-size: 0.875em;
-    font-weight: bold;
-    background: rgba(var(--accent), 22%);
-    color: rgb(var(--accent));
-    border-radius: 4px;
-    padding: 0.3em 0.45em;
-  }
-  .instructions strong {
-    color: rgb(var(--accent));
-  }
-</style>

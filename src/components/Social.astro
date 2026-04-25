@@ -10,19 +10,31 @@ const { icon, link, classes, text } = Astro.props;
 ---
 
 <a
-  class={`inline-flex text-current px-3 py-2 mt-2 mr-2 rounded-md transition-colors decoration-none ${classes} hover:text-white`}
-  bg="gray-500/20 dark:gray-400/20"
+  class={`social-link group inline-flex items-center text-current px-3 py-2 rounded-full decoration-none transition-all duration-300 ${classes} hover:text-white hover:-translate-y-0.5`}
   href={link}
   target="_blank"
+  rel="noopener"
 >
-  <div text-lg>
+  <div class="text-lg transition-transform duration-300 group-hover:scale-110">
     <div class={icon}></div>
   </div>
   {
     text && (
-      <div text-sm ml-1 font-500>
+      <div class="text-sm ml-1.5 font-500">
         {text}
       </div>
     )
   }
 </a>
+
+<style>
+  .social-link {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(8px);
+  }
+  :global(html.dark) .social-link {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+</style>
