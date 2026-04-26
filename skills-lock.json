@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "web-design-engineer": {
+      "source": "conardli/garden-skills",
+      "sourceType": "github",
+      "computedHash": "3fdfb1d7c113e22885eae3957fa7833218c9f673e5fccabc06372b0c565c35b1"
+    }
+  }
+}
