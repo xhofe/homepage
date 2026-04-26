@@ -1,0 +1,29 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section>
+  <SectionHeader cmd="git log --since=last-year --graph" meta="contributions snake" metaHref="https://github.com/xhofe" />
+
+  <div class="contrib border border-line bg-bg-elev/40 p-3 sm:p-4">
+    <img
+      class="w-full block dark:hidden"
+      loading="lazy"
+      src="https://jsd.nn.ci/gh/xhofe/xhofe@main/out/github-snake.svg"
+      alt="GitHub contributions snake (light)"
+    />
+    <img
+      class="w-full hidden dark:block"
+      loading="lazy"
+      src="https://jsd.nn.ci/gh/xhofe/xhofe@main/out/github-snake-dark.svg"
+      alt="GitHub contributions snake (dark)"
+    />
+  </div>
+</section>
+
+<style>
+  .contrib {
+    /* Slight inset highlight gives a subtle CRT-screen feel without going full skeuomorphism. */
+    box-shadow: inset 0 1px 0 rgb(var(--line) / 0.6);
+  }
+</style>

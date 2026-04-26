@@ -1,0 +1,49 @@
+---
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+{/* Top window-chrome / faux terminal title bar. */}
+<header
+  class="top-bar flex items-center gap-3 px-3 sm:px-4 h-9 border-b border-line bg-bg-elev/60 backdrop-blur-[2px] text-[0.78rem]"
+>
+  <div class="flex items-center gap-1.5 shrink-0">
+    {/* Subdued traffic lights — monochrome, no candy reds. */}
+    <span class="dot" aria-hidden="true"></span>
+    <span class="dot" aria-hidden="true"></span>
+    <span class="dot" aria-hidden="true"></span>
+  </div>
+
+  <div class="flex-1 min-w-0 flex items-center justify-center gap-2 text-muted truncate">
+    <span class="i-ri-terminal-box-line text-fg/70"></span>
+    <span class="truncate">
+      <span class="op-60">~/</span><span class="text-fg">andyhsu</span>
+      <span class="op-50">— bash</span>
+    </span>
+  </div>
+
+  <div class="flex items-center gap-2 shrink-0">
+    <span class="hidden sm:inline-flex items-center gap-1 text-muted">
+      <span class="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent))]"></span>
+      <span>online</span>
+    </span>
+    <ThemeToggle />
+  </div>
+</header>
+
+<style>
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: rgb(var(--line));
+    border: 1px solid rgb(var(--line));
+  }
+  .dot:hover {
+    background: rgb(var(--muted) / 0.5);
+  }
+</style>

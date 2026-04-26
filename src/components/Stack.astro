@@ -1,0 +1,87 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+// Curated stack — categorised, no logo zoo. Keyword chips read like config flags.
+const groups: { label: string; items: string[] }[] = [
+  { label: "languages",  items: ["go", "rust", "typescript", "javascript", "python", "java", "zig"] },
+  { label: "frontend",   items: ["solidjs", "react", "vue", "astro", "tailwind", "vite"] },
+  { label: "backend",    items: ["gin", "node", "redis", "mysql", "sqlite", "nginx"] },
+  { label: "devtools",   items: ["docker", "github actions", "vscode", "vim", "git", "linux"] },
+  { label: "interests",  items: ["distributed sys", "developer tools", "open source", "design"] },
+];
+---
+
+<section>
+  <SectionHeader cmd="cat stack.txt" meta={`${groups.reduce((n, g) => n + g.items.length, 0)} entries`} />
+
+  <div class="stack border border-line bg-bg-elev/50">
+    {groups.map((g) => (
+      <div class="stack-row">
+        <div class="stack-label">
+          <span class="text-muted">--</span>{g.label}
+        </div>
+        <div class="stack-items">
+          {g.items.map((it) => (
+            <span class="kw">{it}</span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stack {
+    padding: 4px 0;
+  }
+  .stack-row {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    align-items: start;
+    gap: 14px;
+    padding: 10px 14px;
+    border-top: 1px dashed rgb(var(--line));
+  }
+  .stack-row:first-child {
+    border-top: 0;
+  }
+  .stack-label {
+    color: rgb(var(--accent));
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .stack-label .text-muted {
+    margin-right: 4px;
+    color: rgb(var(--muted));
+    font-weight: 400;
+  }
+  .stack-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .kw {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border: 1px solid rgb(var(--line));
+    background: rgb(var(--bg) / 0.6);
+    color: rgb(var(--fg) / 0.85);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .kw:hover {
+    color: rgb(var(--bg));
+    background: rgb(var(--accent));
+    border-color: rgb(var(--accent));
+  }
+
+  @media (max-width: 520px) {
+    .stack-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+  }
+</style>

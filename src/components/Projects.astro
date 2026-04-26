@@ -1,74 +1,79 @@
 ---
 import Project from "./Project.astro";
+import SectionHeader from "./SectionHeader.astro";
+
 const projects = [
   {
     repo: "alist-org/alist",
-    desc: "A file list program that supports multiple storage, powered by Gin and Solidjs.",
-    icon: "i-twemoji-open-file-folder",
-  },
-  {
-    repo: "xhofe/gh-contributors",
-    desc: "⭐ Generate svg of contributors, multiple repo supported",
-    icon: "i-twemoji-glowing-star",
-  },
-  {
-    repo: "xhofe/solid-contextmenu",
-    desc: "Add a context menu to your solidjs app with ease. Inspired by react-contexify but for Solidjs.",
-    icon: "i-twemoji-love-you-gesture-light-skin-tone",
-  },
-  {
-    repo: "xhofe/ipa-renamer",
-    desc: "A command line tool for renaming your ipa files quickly and easily.",
-    icon: "i-twemoji-hammer-and-wrench",
-  },
-  {
-    repo: "xhofe/aper",
-    desc: "A simple music player built with solid.js and howler.js.",
-    icon: "i-twemoji-musical-notes",
-  },
-  {
-    repo: "xhofe/solid-iconify",
-    desc: "A icon component set for SolidJS using Iconify.",
-    icon: "i-twemoji-smiling-face-with-horns",
+    desc: "A file list program supporting multiple cloud storages.",
+    tag: "go",
+    badge: "★",
   },
   {
     repo: "alist-org/alist-web",
-    desc: "The front end of Alist V3",
-    icon: "i-twemoji:file-folder",
+    desc: "Front end of Alist V3, built with SolidJS.",
+    tag: "ts",
+  },
+  {
+    repo: "xhofe/gh-contributors",
+    desc: "Generate SVG of contributors across multiple repos.",
+    tag: "go",
+  },
+  {
+    repo: "xhofe/solid-contextmenu",
+    desc: "Context menu primitives for SolidJS apps.",
+    tag: "ts",
+  },
+  {
+    repo: "xhofe/aper",
+    desc: "A simple music player built with SolidJS and howler.js.",
+    tag: "ts",
+  },
+  {
+    repo: "xhofe/solid-iconify",
+    desc: "Iconify icon component set for SolidJS.",
+    tag: "ts",
+  },
+  {
+    repo: "xhofe/ipa-renamer",
+    desc: "Command-line tool for renaming .ipa files quickly.",
+    tag: "rs",
   },
   {
     repo: "xhofe/imgbed",
-    desc: "Multi-interface/custom interface file/picture upload",
-    icon: "i-twemoji-framed-picture",
+    desc: "Multi-interface image / file upload utility.",
+    tag: "ts",
   },
   {
     repo: "xhofe/vscode-log-watcher",
-    desc: "A VSCode extension for watching log files",
-    icon: "i-twemoji:memo",
+    desc: "VS Code extension for watching log files in real time.",
+    tag: "ext",
   },
   {
     repo: "xhofe/vscode-pb-jump",
-    desc: "A VSCode extension for jumping between protobuf file and code",
-    icon: "i-twemoji:linked-paperclips",
+    desc: "Jump between protobuf definitions and generated code.",
+    tag: "ext",
   },
 ];
 ---
 
 <section>
-  <h3 class="flex items-center mt-10 mb-4 font-semibold text-2xl tracking-tight">
-    <span class="i-ri-code-box-line mr-2 text-brand-500"></span>
-    <span class="flex-1">Projects</span>
-    <a
-      href="https://github.com/xhofe"
-      target="_blank"
-      rel="noopener"
-      class="op-50 hover:op-100 transition-opacity decoration-none text-current inline-flex items-center gap-1 text-sm font-normal"
-    >
-      <span>All</span>
-      <span class="i-ri-arrow-right-up-line"></span>
-    </a>
-  </h3>
-  <div class="grid gap-3.5 grid-cols-1 sm:grid-cols-2">
+  <SectionHeader cmd="ls -la projects/" meta={`${projects.length} repos · all on github`} metaHref="https://github.com/xhofe?tab=repositories" />
+
+  <div class="proj-list border border-line bg-bg-elev/50">
     {projects.map((project) => <Project {...project} />)}
   </div>
+
+  <p class="mt-3 text-[0.78rem] text-muted">
+    <span class="term-prompt">$</span> use <span class="kbd">↵</span> to open
+    a repo · listing only highlighted projects, see all on
+    <a class="link-inline" href="https://github.com/xhofe" target="_blank" rel="noopener">github.com/xhofe</a>.
+  </p>
 </section>
+
+<style>
+  .proj-list {
+    /* Slight inner top padding so the first dashed border doesn't visually clash with the wrapper border. */
+    padding: 0;
+  }
+</style>

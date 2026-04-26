@@ -6,7 +6,7 @@ export interface Props {
 
 const {
   title,
-  description = "Andy Hsu — Full Stack developer & open source enthusiast.",
+  description = "Andy Hsu — Full-stack developer & open source enthusiast.",
 } = Astro.props;
 ---
 
@@ -16,8 +16,8 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafaf9" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0f" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f4ee" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0d0e" />
     <link
       rel="icon"
       type="image/svg+xml"
@@ -26,7 +26,7 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    {/* Anti-flicker: apply theme before first paint */}
+    {/* Apply theme before first paint to avoid flicker. */}
     <script is:inline>
       (function () {
         try {
@@ -41,13 +41,12 @@ const {
       })();
     </script>
   </head>
-  <body class="font-sans antialiased text-neutral-900 dark:text-neutral-100">
-    {/* Decorative background */}
-    <div aria-hidden="true" class="bg-aurora">
-      <div class="blob blob-a"></div>
-      <div class="blob blob-b"></div>
-      <div class="blob blob-c"></div>
-      <div class="grid-overlay"></div>
+  <body class="font-mono antialiased text-fg selection:bg-accent/30 selection:text-fg">
+    {/* Subtle CRT-grid background — not a gradient blob. */}
+    <div aria-hidden="true" class="bg-grid">
+      <div class="grid-lines"></div>
+      <div class="vignette"></div>
+      <div class="scanlines"></div>
     </div>
 
     <slot />
@@ -56,177 +55,139 @@ const {
 
 <style is:global>
   :root {
-    --accent: 124, 92, 255;
-    --accent-2: 247, 108, 198;
-    --bg: 250, 250, 249;
-    --bg-elev: 255, 255, 255;
-    --fg: 18, 18, 23;
-    --muted: 100, 100, 110;
-    --ring: 0, 0, 0;
-    --accent-gradient: linear-gradient(
-      120deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-2)) 60%,
-      #ffb37c 100%
-    );
+    /* Light: warm paper + ink, dark green accent for contrast on light bg. */
+    --bg: 244, 244, 238;
+    --bg-elev: 252, 252, 247;
+    --fg: 14, 16, 17;
+    --muted: 92, 97, 102;
+    --line: 217, 217, 210;
+    --accent: 63, 98, 18;   /* lime-800-ish, readable on paper */
+    --warn: 180, 83, 9;     /* amber-700 */
   }
 
   html.dark {
-    --bg: 10, 10, 15;
-    --bg-elev: 20, 20, 28;
-    --fg: 240, 240, 245;
-    --muted: 160, 160, 175;
-    --ring: 255, 255, 255;
-    --accent: 156, 132, 255;
-    --accent-2: 255, 138, 210;
+    /* Dark: phosphor terminal. */
+    --bg: 11, 13, 14;
+    --bg-elev: 18, 20, 22;
+    --fg: 232, 234, 234;
+    --muted: 123, 131, 136;
+    --line: 31, 34, 37;
+    --accent: 163, 230, 53; /* lime-400 / phosphor green */
+    --warn: 245, 158, 11;   /* amber-500 */
   }
 
   html,
   body {
     background-color: rgb(var(--bg));
     color: rgb(var(--fg));
+    font-feature-settings: "ss01", "ss02", "cv01", "cv11";
   }
 
-  /* Smooth color transitions when no View Transitions support */
-  html:not(.vt-supported) body,
-  html:not(.vt-supported) .surface,
-  html:not(.vt-supported) .card-base {
-    transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease;
+  /* Smooth color transitions when there's no View Transitions support. */
+  html:not(.vt-supported) body {
+    transition: background-color 0.35s ease, color 0.25s ease;
   }
 
-  /* Decorative aurora background */
-  .bg-aurora {
+  /* CRT-grid background — fixed, behind everything. */
+  .bg-grid {
     position: fixed;
     inset: 0;
     z-index: -1;
     overflow: hidden;
     pointer-events: none;
   }
-  .bg-aurora .blob {
+
+  .bg-grid .grid-lines {
     position: absolute;
-    border-radius: 9999px;
-    filter: blur(80px);
-    opacity: 0.55;
-    transition: opacity 0.6s ease, background 0.6s ease;
-    will-change: transform;
-  }
-  .bg-aurora .blob-a {
-    width: 540px;
-    height: 540px;
-    left: -160px;
-    top: -160px;
-    background: radial-gradient(circle at 30% 30%, #c4b5fd, transparent 60%);
-    animation: float-a 18s ease-in-out infinite;
-  }
-  .bg-aurora .blob-b {
-    width: 480px;
-    height: 480px;
-    right: -120px;
-    top: 20%;
-    background: radial-gradient(circle at 70% 30%, #fbcfe8, transparent 60%);
-    animation: float-b 22s ease-in-out infinite;
-  }
-  .bg-aurora .blob-c {
-    width: 420px;
-    height: 420px;
-    left: 30%;
-    bottom: -160px;
-    background: radial-gradient(circle at 50% 50%, #bae6fd, transparent 60%);
-    animation: float-c 26s ease-in-out infinite;
-  }
-  html.dark .bg-aurora .blob {
-    opacity: 0.35;
-  }
-  html.dark .bg-aurora .blob-a {
-    background: radial-gradient(circle at 30% 30%, #6d4cff, transparent 60%);
-  }
-  html.dark .bg-aurora .blob-b {
-    background: radial-gradient(circle at 70% 30%, #ff6dbf, transparent 60%);
-  }
-  html.dark .bg-aurora .blob-c {
-    background: radial-gradient(circle at 50% 50%, #00b3ff, transparent 60%);
+    inset: -1px;
+    background-image:
+      linear-gradient(to right, rgb(var(--line) / 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--line) / 0.55) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 35%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, #000 35%, transparent 85%);
   }
 
-  .bg-aurora .grid-overlay {
+  .bg-grid .vignette {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-    background-size: 36px 36px;
-    mask-image: radial-gradient(ellipse at center, black 50%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 50%, transparent 80%);
-  }
-  html.dark .bg-aurora .grid-overlay {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgb(var(--accent) / 0.06), transparent 60%),
+      radial-gradient(ellipse at 100% 100%, rgb(var(--accent) / 0.04), transparent 55%);
   }
 
-  @keyframes float-a {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(40px, 30px) scale(1.08); }
+  /* Faint scanlines — barely there, only in dark mode. */
+  .bg-grid .scanlines {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode: overlay;
+    transition: opacity 0.4s ease;
   }
-  @keyframes float-b {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-50px, 40px) scale(1.05); }
-  }
-  @keyframes float-c {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(30px, -40px) scale(1.07); }
-  }
-
-  /* Text gradient utility */
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+  html.dark .bg-grid .scanlines {
+    opacity: 0.5;
   }
 
-  /* Intro animations */
+  /* Blinking cursor caret — used after the name in the hero. */
+  .caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    vertical-align: -0.12em;
+    background: rgb(var(--accent));
+    margin-left: 0.12em;
+    animation: caret-blink 1.05s steps(1, end) infinite;
+  }
+  @keyframes caret-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  /* Rise-in entrance animation, kept subtler than before. */
   @keyframes rise-in {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
   .rise {
-    animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  code {
-    font-family: 'JetBrains Mono', Menlo, Monaco, monospace;
+  /* Underline-on-hover for inline links inside prose-ish areas. */
+  .link-inline {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dashed rgb(var(--muted) / 0.6);
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .link-inline:hover {
+    color: rgb(var(--accent));
+    border-bottom-color: rgb(var(--accent));
   }
 
-  /* View Transitions: circular reveal for theme switch.
-     The animated layer must always sit on TOP so the clip-path is visible.
-     - Going to LIGHT  (no .dark): we animate the OLD (dark) layer shrinking → keep OLD on top.
-     - Going to DARK   (.dark):    we animate the NEW (dark) layer expanding → put NEW on top. */
+  /* View Transitions: circular reveal for theme switch (kept from previous design). */
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
   }
-  ::view-transition-old(root) {
-    z-index: 9999;
-  }
-  ::view-transition-new(root) {
-    z-index: 1;
-  }
-  html.dark::view-transition-old(root) {
-    z-index: 1;
-  }
-  html.dark::view-transition-new(root) {
-    z-index: 9999;
-  }
+  ::view-transition-old(root) { z-index: 9999; }
+  ::view-transition-new(root) { z-index: 1; }
+  html.dark::view-transition-old(root) { z-index: 1; }
+  html.dark::view-transition-new(root) { z-index: 9999; }
 
-  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
-    .bg-aurora .blob { animation: none; }
+    .caret { animation: none; opacity: 1; }
   }
 </style>

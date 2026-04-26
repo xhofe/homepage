@@ -1,0 +1,60 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+// Lightweight "now" page section — what I'm focused on at the moment.
+const items = [
+  { kind: "building", text: "the next major version of alist" },
+  { kind: "studying", text: "distributed systems & systems programming in Rust" },
+  { kind: "writing",  text: "occasional notes at blog.nn.ci" },
+  { kind: "open to",  text: "collaborations on developer tooling & OSS" },
+];
+---
+
+<section>
+  <SectionHeader cmd="uptime --focus" meta="updated weekly" />
+
+  <ul class="now-list border border-line bg-bg-elev/50">
+    {items.map((it) => (
+      <li class="now-row group">
+        <span class="kind">{it.kind}</span>
+        <span class="dot-sep" aria-hidden="true">·</span>
+        <span class="text">{it.text}</span>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .now-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .now-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 14px;
+    border-top: 1px dashed rgb(var(--line));
+    font-size: 0.9rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .now-row:first-child {
+    border-top: 0;
+  }
+  .now-row:hover {
+    background: rgb(var(--accent) / 0.06);
+  }
+  .kind {
+    color: rgb(var(--accent));
+    font-weight: 600;
+    width: 6.5rem;
+    flex-shrink: 0;
+  }
+  .dot-sep {
+    color: rgb(var(--muted));
+  }
+  .text {
+    color: rgb(var(--fg) / 0.9);
+  }
+</style>

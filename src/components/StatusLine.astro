@@ -1,0 +1,44 @@
+---
+const year = new Date().getFullYear();
+---
+
+{/* Vim-style bottom status line. */}
+<footer
+  class="status-line mt-16 flex items-stretch text-[0.72rem] uppercase tracking-wider border-t border-line"
+>
+  <span class="seg seg-mode bg-accent text-bg font-semibold">NORMAL</span>
+  <span class="seg seg-meta">
+    <span class="i-ri-git-branch-line"></span>
+    <span>main</span>
+  </span>
+  <span class="seg seg-meta op-70">utf-8 · lf</span>
+  <span class="flex-1 border-x border-line"></span>
+  <span class="seg seg-meta op-80">
+    <span>© {year} andy hsu</span>
+  </span>
+  <span class="seg seg-meta">
+    <a
+      href="#top"
+      onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"
+      class="inline-flex items-center gap-1 text-current decoration-none hover:text-accent transition-colors"
+    >
+      <span>top</span>
+      <span class="i-ri-arrow-up-line"></span>
+    </a>
+  </span>
+  <span class="seg seg-mode bg-fg text-bg font-semibold">v3</span>
+</footer>
+
+<style>
+  .status-line {
+    background: rgb(var(--bg-elev) / 0.7);
+    backdrop-filter: blur(2px);
+  }
+  .seg {
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+  }
+</style>

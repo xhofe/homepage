@@ -1,54 +1,48 @@
 ---
-// Theme toggle with circular reveal animation via View Transitions API
+// Theme toggle with circular reveal via View Transitions API.
+// Terminal-flavored: square button, monospace label, single accent.
 ---
 
 <button
   id="theme-toggle"
   type="button"
   aria-label="Toggle theme"
-  title="Toggle theme"
-  class="icon-btn relative overflow-hidden group"
+  title="Toggle theme (t)"
+  class="theme-toggle inline-flex items-center justify-center w-7 h-7 border border-line text-fg/80 hover:text-accent hover:border-accent transition-colors relative overflow-hidden"
 >
   <span class="sr-only">Toggle theme</span>
-  <span class="icon sun i-ri-sun-line text-lg text-amber-500"></span>
-  <span class="icon moon i-ri-moon-clear-line text-lg text-indigo-300"></span>
+  <span class="icon sun i-ri-sun-line"></span>
+  <span class="icon moon i-ri-moon-clear-line"></span>
 </button>
 
 <style>
-  #theme-toggle .icon {
+  .theme-toggle .icon {
     position: absolute;
     inset: 0;
     margin: auto;
+    width: 14px;
+    height: 14px;
     display: inline-block;
     transition:
-      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.4s ease;
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s ease;
     will-change: transform, opacity;
   }
-  /* Default (light): show sun, hide moon */
-  #theme-toggle .sun {
+  .theme-toggle .sun {
     transform: rotate(0deg) scale(1);
     opacity: 1;
   }
-  #theme-toggle .moon {
+  .theme-toggle .moon {
     transform: rotate(-90deg) scale(0.4);
     opacity: 0;
   }
-  /* Dark mode: hide sun, show moon */
-  :global(html.dark) #theme-toggle .sun {
+  :global(html.dark) .theme-toggle .sun {
     transform: rotate(90deg) scale(0.4);
     opacity: 0;
   }
-  :global(html.dark) #theme-toggle .moon {
+  :global(html.dark) .theme-toggle .moon {
     transform: rotate(0deg) scale(1);
     opacity: 1;
-  }
-
-  #theme-toggle:hover {
-    transform: translateY(-1px);
-  }
-  #theme-toggle:active {
-    transform: translateY(0);
   }
 </style>
 
@@ -69,20 +63,22 @@
     return document.documentElement.classList.contains('dark') ? 'light' : 'dark';
   }
 
-  // Mark whether the browser supports View Transitions (used by CSS fallback transitions)
   if ('startViewTransition' in document) {
     document.documentElement.classList.add('vt-supported');
   }
 
-  function toggleTheme(event: MouseEvent) {
+  function toggleTheme(event: MouseEvent | KeyboardEvent) {
     const next = getNextTheme();
     const isDark = next === 'dark';
 
-    // Origin point: the click coordinate (or button center if invoked via keyboard)
     const target = event.currentTarget as HTMLElement | null;
-    let x = event.clientX;
-    let y = event.clientY;
-    if (target && (event.clientX === 0 && event.clientY === 0)) {
+    let x = 0;
+    let y = 0;
+    if (event instanceof MouseEvent) {
+      x = event.clientX;
+      y = event.clientY;
+    }
+    if (target && (x === 0 && y === 0)) {
       const rect = target.getBoundingClientRect();
       x = rect.left + rect.width / 2;
       y = rect.top + rect.height / 2;
@@ -93,8 +89,7 @@
       Math.max(y, window.innerHeight - y)
     );
 
-    // Fallback: no View Transitions support
-    // @ts-ignore - startViewTransition is not yet in lib.dom.d.ts everywhere
+    // @ts-ignore
     if (typeof document.startViewTransition !== 'function') {
       applyTheme(next);
       return;
@@ -115,11 +110,8 @@
           clipPath: isDark ? clipPath : [...clipPath].reverse(),
         },
         {
-          duration: 520,
+          duration: 480,
           easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
-          // Keep the final clip-path so the layer stays clipped until the
-          // view transition is fully torn down — prevents a 1-frame flash
-          // of the opaque OLD snapshot when switching dark → light.
           fill: 'forwards',
           pseudoElement: isDark
             ? '::view-transition-new(root)'
@@ -132,7 +124,16 @@
   const btn = document.getElementById('theme-toggle');
   btn?.addEventListener('click', toggleTheme as EventListener);
 
-  // React to system theme changes when user hasn't explicitly chosen
+  // Keyboard shortcut: `t` toggles theme.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 't' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const tag = (document.activeElement?.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+      toggleTheme(e);
+    }
+  });
+
+  // React to system theme changes when user hasn't explicitly chosen.
   const media = window.matchMedia('(prefers-color-scheme: dark)');
   media.addEventListener?.('change', (e) => {
     if (!localStorage.getItem(STORAGE_KEY)) {

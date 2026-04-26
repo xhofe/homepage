@@ -1,0 +1,41 @@
+---
+export interface Props {
+  /** The command rendered after the `$` prompt, e.g. `cat about.md`. */
+  cmd: string;
+  /** Optional aside on the right edge (e.g. `--all`, count, link). */
+  meta?: string;
+  metaHref?: string;
+  id?: string;
+}
+
+const { cmd, meta, metaHref, id } = Astro.props;
+---
+
+<div id={id} class="section-header flex items-baseline gap-3 mt-12 mb-4">
+  <span class="term-prompt font-semibold">$</span>
+  <span class="cmd font-medium tracking-tight text-fg">{cmd}</span>
+  <span class="flex-1 border-b border-dashed border-line/80 translate-y-[-4px]"></span>
+  {meta && metaHref && (
+    <a
+      href={metaHref}
+      target="_blank"
+      rel="noopener"
+      class="text-[0.78rem] text-muted hover:text-accent transition-colors decoration-none inline-flex items-center gap-1"
+    >
+      <span>{meta}</span>
+      <span class="i-ri-arrow-right-up-line"></span>
+    </a>
+  )}
+  {meta && !metaHref && (
+    <span class="text-[0.78rem] text-muted">{meta}</span>
+  )}
+</div>
+
+<style>
+  .section-header {
+    font-size: 0.95rem;
+  }
+  .cmd {
+    font-size: 1.05rem;
+  }
+</style>

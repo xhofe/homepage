@@ -2,60 +2,153 @@
 export interface Props {
   repo: string;
   desc: string;
-  icon?: string;
+  /** Two-letter tag, like "go", "ts", "rs", "ext". Renders as a small monochrome chip. */
+  tag?: string;
+  /** Optional small label (e.g. "★", "pinned"). */
+  badge?: string;
 }
 
-const { icon, repo, desc } = Astro.props;
+const { repo, desc, tag, badge } = Astro.props;
 const name = repo.split("/")[1];
+const owner = repo.split("/")[0];
 ---
 
 <a
-  class="project-card group block px-4 py-3.5 rounded-xl decoration-none text-current transition-all duration-300"
+  class="proj-row group"
   href={`https://github.com/${repo}`}
   target="_blank"
   rel="noopener"
 >
-  <div class="flex h-full items-center justify-center">
-    <div flex-1 flex="~ col gap-1" min-w-0>
-      <div class="flex items-center justify-between gap-2 font-semibold leading-relaxed">
-        <span class="truncate">{name}</span>
-        <span
-          class="i-ri-arrow-right-up-line text-base opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
-        ></span>
-      </div>
-      <div op-60 font-normal text-sm leading-snug>
-        {desc}
-      </div>
-    </div>
-    {icon && (
-      <div ml-4 text-3xl op-90 class="shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
-        <div class={icon}></div>
-      </div>
-    )}
-  </div>
+  {/* drwxr-xr-x – purely decorative permission bits, terminal style */}
+  <span class="perm" aria-hidden="true">drwxr-xr-x</span>
+
+  <span class="tag" data-tag={tag || "—"}>{tag || "—"}</span>
+
+  <span class="name">
+    <span class="owner">{owner}/</span><span class="repo">{name}</span>
+    {badge && <span class="badge">{badge}</span>}
+  </span>
+
+  <span class="desc">{desc}</span>
+
+  <span class="arrow i-ri-arrow-right-up-line" aria-hidden="true"></span>
 </a>
 
 <style>
-  .project-card {
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  .proj-row {
+    display: grid;
+    grid-template-columns: auto 2.6rem 1fr 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-top: 1px dashed rgb(var(--line));
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
-  :global(html.dark) .project-card {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: none;
+  .proj-row:first-child {
+    border-top: 0;
   }
-  .project-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(124, 92, 255, 0.4);
-    box-shadow: 0 12px 30px -12px rgba(124, 92, 255, 0.35);
+  .proj-row:hover {
+    background: rgb(var(--accent) / 0.06);
   }
-  :global(html.dark) .project-card:hover {
-    border-color: rgba(156, 132, 255, 0.5);
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 12px 30px -10px rgba(124, 92, 255, 0.45);
+
+  .perm {
+    color: rgb(var(--muted));
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    display: none;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.4rem;
+    padding: 0 6px;
+    border: 1px solid rgb(var(--line));
+    color: rgb(var(--muted));
+    font-size: 0.7rem;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+  }
+  .proj-row:hover .tag {
+    color: rgb(var(--accent));
+    border-color: rgb(var(--accent) / 0.5);
+  }
+
+  .name {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    min-width: 0;
+    color: rgb(var(--fg));
+    font-weight: 600;
+  }
+  .name .owner {
+    color: rgb(var(--muted));
+    font-weight: 400;
+  }
+  .name .repo {
+    text-decoration: none;
+  }
+  .proj-row:hover .name .repo {
+    color: rgb(var(--accent));
+  }
+
+  .badge {
+    margin-left: 4px;
+    font-size: 0.7rem;
+    color: rgb(var(--warn));
+    border: 1px solid rgb(var(--warn) / 0.4);
+    padding: 0 5px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .desc {
+    color: rgb(var(--fg) / 0.7);
+    font-size: 0.82rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .arrow {
+    color: rgb(var(--muted));
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+  }
+  .proj-row:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: rgb(var(--accent));
+  }
+
+  /* On wider screens reveal the perm column for the full ls -la look. */
+  @media (min-width: 768px) {
+    .proj-row {
+      grid-template-columns: 8.5rem 2.6rem 1.1fr 1.6fr auto;
+    }
+    .perm {
+      display: inline;
+    }
+  }
+
+  /* Mobile: stack desc below name. */
+  @media (max-width: 520px) {
+    .proj-row {
+      grid-template-columns: 2.6rem 1fr auto;
+      grid-template-areas:
+        "tag name arrow"
+        ". desc desc";
+    }
+    .perm { display: none; }
+    .tag { grid-area: tag; }
+    .name { grid-area: name; }
+    .desc { grid-area: desc; white-space: normal; font-size: 0.78rem; }
+    .arrow { grid-area: arrow; }
   }
 </style>

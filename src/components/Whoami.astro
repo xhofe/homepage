@@ -1,0 +1,96 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section class="mt-6 sm:mt-10">
+  <SectionHeader cmd="whoami" />
+
+  <div class="rise" style="animation-delay: 60ms;">
+    <h1 class="hero-name font-extrabold tracking-tight leading-[1.05]">
+      <span class="text-fg">andy</span><span class="text-muted">_</span><span class="text-fg">hsu</span><span class="caret" aria-hidden="true"></span>
+    </h1>
+  </div>
+
+  <div class="mt-3 rise text-muted leading-relaxed max-w-[58ch]" style="animation-delay: 140ms;">
+    <p>
+      <span class="text-accent">▌</span>
+      full-stack engineer, open source maintainer, master&apos;s student.
+    </p>
+    <p class="mt-1">
+      builder of <a class="link-inline" href="https://github.com/alist-org/alist" target="_blank" rel="noopener">alist</a>,
+      writer at <a class="link-inline" href="https://blog.nn.ci" target="_blank" rel="noopener">blog.nn.ci</a>,
+      and full-time advocate for <span class="text-fg">tools that get out of the way</span>.
+    </p>
+  </div>
+
+  <div class="mt-5 rise flex flex-wrap items-center gap-2" style="animation-delay: 220ms;">
+    <span class="status-chip">
+      <span class="dot"></span>
+      <span>available for collaboration</span>
+    </span>
+    <a
+      href="mailto:i@nn.ci"
+      class="action-chip group"
+    >
+      <span class="i-ri-mail-line"></span>
+      <span>i@nn.ci</span>
+      <span class="i-ri-arrow-right-up-line opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></span>
+    </a>
+    <a
+      href="https://github.com/sponsors/xhofe"
+      target="_blank"
+      rel="noopener"
+      class="action-chip group"
+    >
+      <span class="i-ri-heart-3-line"></span>
+      <span>sponsor</span>
+      <span class="i-ri-arrow-right-up-line opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero-name {
+    font-size: clamp(2.4rem, 8vw, 4.6rem);
+    font-family: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+    letter-spacing: -0.04em;
+  }
+
+  .status-chip,
+  .action-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    border: 1px solid rgb(var(--line));
+    background: rgb(var(--bg-elev) / 0.6);
+    color: rgb(var(--fg));
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+
+  .status-chip {
+    color: rgb(var(--accent));
+    border-color: rgb(var(--accent) / 0.5);
+    background: rgb(var(--accent) / 0.08);
+  }
+  .status-chip .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: rgb(var(--accent));
+    box-shadow: 0 0 8px rgb(var(--accent));
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.85); }
+  }
+
+  .action-chip:hover {
+    color: rgb(var(--accent));
+    border-color: rgb(var(--accent));
+    background: rgb(var(--accent) / 0.06);
+  }
+</style>

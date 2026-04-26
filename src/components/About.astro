@@ -1,0 +1,28 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section>
+  <SectionHeader cmd="cat about.md" />
+
+  <div class="prose-term text-fg/85 leading-relaxed max-w-[64ch]">
+    <p>
+      I write Go, Rust and TypeScript for a living, and a bit of everything else for fun.
+      I&apos;ve spent the last few years maintaining
+      <a class="link-inline" href="https://github.com/alist-org/alist" target="_blank" rel="noopener">alist</a>
+      &mdash; a multi-cloud file list tool used by hundreds of thousands &mdash; and
+      a long tail of small libraries, CLIs and editor extensions.
+    </p>
+    <p class="mt-3">
+      I&apos;m most interested in developer tools, distributed systems, and interfaces that
+      <span class="text-fg">respect their users&apos; time</span>. I believe the best
+      software is the kind you stop noticing.
+    </p>
+  </div>
+</section>
+
+<style>
+  .prose-term {
+    font-size: 0.95rem;
+  }
+</style>
