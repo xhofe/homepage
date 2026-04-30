@@ -8,7 +8,7 @@
   type="button"
   aria-label="Toggle theme"
   title="Toggle theme (t)"
-  class="theme-toggle inline-flex items-center justify-center w-7 h-7 border border-line text-fg/80 hover:text-accent hover:border-accent transition-colors relative overflow-hidden"
+  class="theme-toggle inline-flex items-center justify-center w-8 h-8 border border-fg/15 hover:border-accent transition-colors relative overflow-hidden"
 >
   <span class="sr-only">Toggle theme</span>
   <span class="icon sun i-ri-sun-line"></span>
@@ -20,21 +20,29 @@
     position: absolute;
     inset: 0;
     margin: auto;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     display: inline-block;
     transition:
       transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.35s ease;
+      opacity 0.35s ease,
+      color 0.2s ease;
     will-change: transform, opacity;
   }
+  /* Distinct default colors per icon — high contrast in both themes. */
   .theme-toggle .sun {
+    color: rgb(var(--warn));
     transform: rotate(0deg) scale(1);
     opacity: 1;
   }
   .theme-toggle .moon {
+    color: rgb(var(--accent));
     transform: rotate(-90deg) scale(0.4);
     opacity: 0;
+  }
+  /* Hover unifies to the accent for consistent feedback. */
+  .theme-toggle:hover .icon {
+    color: rgb(var(--accent));
   }
   :global(html.dark) .theme-toggle .sun {
     transform: rotate(90deg) scale(0.4);
