@@ -10,19 +10,18 @@ const y = year();
     <p class="mt-1 border-t border-[#1a1612] pt-1.5 text-sm">{roleLine()}</p>
   </header>
   <img class="my-4 w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+  <div class="mb-4 flex flex-wrap gap-x-4 gap-y-2 border-b border-[#1a1612] pb-3">
+    {
+      site.socials.map((item) => (
+        <a class="inline-flex items-center gap-1.5 no-underline hover:underline" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+          <span class={item.icon} aria-hidden="true"></span>
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
   <div class="columns-1 gap-7 md:columns-3">
     <p class="mb-4 font-serif text-2xl leading-snug">{site.quoteLead} <strong>{site.quoteEm}</strong>.</p>
-    <p class="mb-1 text-xs tracking-[0.14em] uppercase">{site.labels.social}</p>
-    <div class="mb-4 flex flex-col gap-1">
-      {
-        site.socials.map((item) => (
-          <a class="inline-flex items-center gap-1.5 no-underline hover:underline" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
-            <span class={item.icon} aria-hidden="true"></span>
-            {item.text || item.link.replace(/^https?:\/\//, "")}
-          </a>
-        ))
-      }
-    </div>
     <h2 class="mb-2 text-xs tracking-[0.14em] uppercase">{site.labels.projects}</h2>
     {
       site.projects.map((project) => (

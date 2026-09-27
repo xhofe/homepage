@@ -1,0 +1,48 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="min-h-screen bg-[#f3efe4] text-[#111]">
+  <header class="overflow-hidden px-5 pt-16">
+    <p class="text-xs font-bold tracking-[0.35em] uppercase">{site.availability}</p>
+    <h1 class="-ml-[0.06em] text-[28vw] leading-[0.78] font-black tracking-tighter">{site.name}</h1>
+  </header>
+  <div class="bg-[#111] px-5 py-8 text-[#f3efe4]">
+    <p class="max-w-4xl text-[clamp(1.6rem,4vw,3rem)] leading-tight font-black">{site.quoteLead} {site.quoteEm}.</p>
+    <p class="mt-4 max-w-xl text-sm">{roleLine()}</p>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {
+        site.socials.map((item) => (
+          <a class="inline-flex items-center gap-1.5 border border-[#f3efe4] px-3 py-1.5 text-sm font-bold no-underline hover:bg-[#f3efe4] hover:text-[#111]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class={item.icon} aria-hidden="true"></span>
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <img class="w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+  <section class="grid grid-cols-1 border-t-8 border-[#111] md:grid-cols-2">
+    {
+      site.projects.map((project, index) => (
+        <a class="border-b border-[#111] px-5 py-5 no-underline hover:bg-[#111] hover:text-[#f3efe4] md:odd:border-r" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+          <span class="text-xs font-bold tracking-[0.2em]">{String(index + 1).padStart(2, "0")}</span>
+          <strong class="mt-1 flex items-center gap-2 text-3xl font-black tracking-tight">
+            <span class={project.icon} aria-hidden="true"></span>
+            {projectName(project.repo)}
+          </strong>
+          <span class="mt-2 block text-sm leading-snug">{project.desc}</span>
+        </a>
+      ))
+    }
+  </section>
+  <section class="border-t-8 border-[#111] px-5 py-6">
+    <h2 class="mb-3 text-xs font-bold tracking-[0.35em] uppercase">{site.labels.skills} · {site.skills.length} {site.labels.stacks}</h2>
+    <img class="w-full" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+  </section>
+  <footer class="flex justify-between border-t-8 border-[#111] px-5 py-4 text-xs font-bold tracking-[0.2em] uppercase">
+    <span>© {y} {site.name}</span>
+    <a class="js-top no-underline" href="#top">{site.labels.backToTop}</a>
+  </footer>
+</div>

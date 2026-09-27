@@ -1,5 +1,6 @@
 export type Social = {
   text: string
+  label: string
   link: string
   icon: string
 }
@@ -34,13 +35,13 @@ export const site = {
     techStack: "Tech stack",
   },
   socials: [
-    { text: "Github", link: "https://github.com/xhofe", icon: "i-ri-github-fill" },
-    { text: "Blog", link: "https://blog.nn.ci", icon: "i-ri-book-2-line" },
-    { text: "", link: "https://stackoverflow.com/users/10545416/xhofe", icon: "i-jam-stackoverflow" },
-    { text: "", link: "https://twitter.com/Xh0fe", icon: "i-ri-twitter-fill" },
-    { text: "", link: "https://space.bilibili.com/1520762073", icon: "i-ri-bilibili-fill" },
-    { text: "", link: "mailto:i@nn.ci", icon: "i-ri-mail-fill" },
-    { text: "", link: "https://github.com/sponsors/xhofe", icon: "i-material-icon-theme:github-sponsors" },
+    { text: "Github", label: "Github", link: "https://github.com/xhofe", icon: "i-ri-github-fill" },
+    { text: "Blog", label: "Blog", link: "https://blog.nn.ci", icon: "i-ri-book-2-line" },
+    { text: "", label: "Stack Overflow", link: "https://stackoverflow.com/users/10545416/xhofe", icon: "i-jam-stackoverflow" },
+    { text: "", label: "Twitter", link: "https://twitter.com/Xh0fe", icon: "i-ri-twitter-fill" },
+    { text: "", label: "Bilibili", link: "https://space.bilibili.com/1520762073", icon: "i-ri-bilibili-fill" },
+    { text: "", label: "Email", link: "mailto:i@nn.ci", icon: "i-ri-mail-fill" },
+    { text: "", label: "Sponsors", link: "https://github.com/sponsors/xhofe", icon: "i-material-icon-theme:github-sponsors" },
   ] satisfies Social[],
   projects: [
     {

@@ -1,0 +1,52 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="grid min-h-screen grid-cols-1 bg-white text-[#111] md:grid-cols-[42%_1fr]">
+  <aside class="flex flex-col justify-between bg-[#ff2400] px-6 pt-20 pb-8 text-white md:sticky md:top-0 md:h-screen">
+    <p class="text-xs font-black tracking-[0.32em] uppercase">{site.availability}</p>
+    <h1 class="text-[clamp(4.5rem,9vw,8rem)] leading-[0.82] font-black tracking-tighter uppercase">{site.name}</h1>
+    <div>
+      <p class="max-w-sm text-lg leading-snug">{roleLine()}</p>
+      <p class="mt-3 max-w-sm text-lg leading-snug">{site.quoteLead} <strong>{site.quoteEm}</strong>.</p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        {
+          site.socials.map((item) => (
+            <a class="inline-flex size-10 items-center justify-center rounded-full bg-white text-[#ff2400] no-underline hover:bg-[#111] hover:text-white" href={item.link} title={item.label} aria-label={item.label} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+              <span class={`${item.icon} text-lg`} aria-hidden="true"></span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </aside>
+  <div>
+    <img class="w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+    <section class="px-6 py-6">
+      <h2 class="mb-2 text-xs font-black tracking-[0.28em] text-[#ff2400] uppercase">{site.labels.projects}</h2>
+      {
+        site.projects.map((project, index) => (
+          <a class="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-[#111] py-3 no-underline hover:text-[#ff2400]" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+            <span class="font-black">{String(index + 1).padStart(2, "0")}</span>
+            <span>
+              <strong class="flex items-center gap-2 text-xl font-black tracking-tight">
+                <span class={project.icon} aria-hidden="true"></span>
+                {projectName(project.repo)}
+              </strong>
+              <span class="mt-1 block text-sm">{project.desc}</span>
+            </span>
+          </a>
+        ))
+      }
+    </section>
+    <section class="border-t-8 border-[#ff2400] px-6 py-6">
+      <h2 class="mb-3 text-xs font-black tracking-[0.28em] uppercase">{site.labels.skills} · {site.skills.length} {site.labels.stacks}</h2>
+      <img class="w-full" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+    </section>
+    <footer class="flex justify-between border-t border-[#111] px-6 py-4 text-xs font-black tracking-[0.2em] uppercase">
+      <span>© {y} {site.name}</span>
+      <a class="js-top no-underline" href="#top">{site.labels.backToTop}</a>
+    </footer>
+  </div>
+</div>

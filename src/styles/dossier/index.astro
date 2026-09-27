@@ -9,12 +9,11 @@ const y = year();
     <p class="mt-6 text-xs tracking-[0.16em] text-[#d6b48a] uppercase">{site.availability}</p>
     <h1 class="mt-2 font-serif text-[clamp(3rem,6vw,5.5rem)] leading-[0.9] font-medium">{site.name}</h1>
     <p class="mt-4 max-w-sm leading-relaxed">{roleLine()}</p>
-    <div class="mt-6 flex flex-col items-start gap-2">
+    <div class="mt-6 flex flex-wrap gap-2">
       {
         site.socials.map((item) => (
-          <a class="inline-flex items-center gap-1.5 no-underline hover:text-[#d6b48a]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
-            <span class={item.icon} aria-hidden="true"></span>
-            {item.text ? <span>{item.text}</span> : null}
+          <a class="inline-flex size-10 items-center justify-center rounded-full border border-[#d6b48a] text-[#f2efe8] no-underline hover:bg-[#d6b48a] hover:text-[#14181f]" href={item.link} title={item.label} aria-label={item.label} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class={`${item.icon} text-lg`} aria-hidden="true"></span>
           </a>
         ))
       }

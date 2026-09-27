@@ -9,12 +9,11 @@ const y = year();
     <p class="mt-5 text-xs tracking-[0.14em] text-[#8c3a2f] uppercase">{site.availability}</p>
     <h1 class="mt-1 font-serif text-4xl font-medium tracking-tight">{site.name}</h1>
     <p class="mt-3 leading-normal">{roleLine()}</p>
-    <div class="mt-6 flex flex-col items-start gap-2">
+    <div class="mt-6 flex flex-wrap gap-2">
       {
         site.socials.map((item) => (
-          <a class="inline-flex items-center gap-1.5 no-underline hover:text-[#8c3a2f]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
-            <span class={item.icon} aria-hidden="true"></span>
-            {item.text ? <span>{item.text}</span> : null}
+          <a class="inline-flex size-10 items-center justify-center rounded-full bg-[#1d1915] text-[#f3ecdf] no-underline hover:bg-[#8c3a2f]" href={item.link} title={item.label} aria-label={item.label} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class={`${item.icon} text-lg`} aria-hidden="true"></span>
           </a>
         ))
       }
