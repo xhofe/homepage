@@ -5,9 +5,3 @@ declare global {
     interface HTMLAttributes extends AttributifyAttributes {}
   }
 }
-
-declare module "solid-js" {
-  namespace JSX {
-    interface HTMLAttributes<T> extends AttributifyAttributes {}
-  }
-}

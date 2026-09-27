@@ -3,7 +3,7 @@ import {
   presetAttributify,
   presetIcons,
   presetTypography,
-  presetUno,
+  presetWind4,
   presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
@@ -36,7 +36,7 @@ export default defineConfig({
     },
   },
   presets: [
-    presetUno({ dark: 'class' }),
+    presetWind4({ dark: 'class' }),
     presetAttributify(),
     presetIcons({
       scale: 1.2,

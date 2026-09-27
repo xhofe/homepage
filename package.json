@@ -2,6 +2,7 @@
   "name": "homepage",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.12.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,13 +11,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^2.3.2"
+    "astro": "^7.3.5"
   },
   "devDependencies": {
-    "@iconify-json/jam": "^1.1.4",
-    "@iconify-json/material-icon-theme": "^1.2.38",
-    "@iconify-json/ri": "^1.1.8",
-    "@iconify-json/twemoji": "^1.1.11",
-    "unocss": "^0.51.8"
+    "@iconify-json/jam": "^1.2.3",
+    "@iconify-json/material-icon-theme": "^1.2.70",
+    "@iconify-json/ri": "^1.2.10",
+    "@iconify-json/twemoji": "^1.2.5",
+    "@unocss/astro": "^66.10.5",
+    "unocss": "^66.10.5"
   }
 }
