@@ -2,6 +2,7 @@
 import { labelScript } from "../styles/early";
 const label = labelScript();
 const face = "dock-face";
+const labelInject = `<${"script"}>${label}</${"script"}>`;
 ---
 
 <div class="fixed top-3 right-3 z-50 flex items-center gap-2">
@@ -34,4 +35,4 @@ const face = "dock-face";
     ></div>
   </div>
 </div>
-<Fragment set:html={`<script>${label}</script>`} />
+<Fragment set:html={labelInject} />

@@ -11,6 +11,7 @@ export interface Props {
 const { title, description = site.description } = Astro.props;
 const paint = earlyScript(getStyles());
 const visibility = styleVisibilityCss();
+const headInject = `<style>${visibility}</style><${"script"}>${paint}</${"script"}>`;
 ---
 
 <!doctype html>
@@ -24,7 +25,7 @@ const visibility = styleVisibilityCss();
     <link rel="icon" type="image/svg+xml" href={site.avatar} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <Fragment set:html={`<style>${visibility}</style><script>${paint}</script>`} />
+    <Fragment set:html={headInject} />
   </head>
   <body class="min-h-screen font-sans antialiased">
     <slot />
