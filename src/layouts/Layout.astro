@@ -31,6 +31,18 @@ const headInject = `<style>${visibility}</style><${"script"}>${paint}</${"script
     <slot />
   </body>
 </html>
+<script>
+  document.addEventListener("click", (event) => {
+    const target = event.target
+    if (!(target instanceof Element)) return
+    const top = target.closest(".js-top")
+    if (!top) return
+    event.preventDefault()
+    const behavior = matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+    top.closest("[data-style-root]")?.querySelector<HTMLElement>("[data-scroll]")?.scrollTo({ top: 0, left: 0, behavior })
+    window.scrollTo({ top: 0, behavior })
+  })
+</script>
 
 <style is:global>
   html[data-scheme="light"],

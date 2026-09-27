@@ -1,8 +1,10 @@
 ---
 import { labelScript } from "../styles/early";
+import { getStyles } from "../styles/load";
 const label = labelScript();
+const styles = getStyles();
 const face = "dock-face";
-const labelInject = `<${"script"}>${label}</${"script"}>`;
+const item = "block w-full cursor-pointer rounded-lg border-0 bg-transparent px-2.5 py-2 text-left text-inherit hover:bg-brand/15";
 ---
 
 <div class="fixed top-3 right-3 z-50 flex items-center gap-2">
@@ -25,14 +27,199 @@ const labelInject = `<${"script"}>${label}</${"script"}>`;
       aria-expanded="false"
       aria-controls="style-menu"
       aria-label="Style"
-      class:list={[face, "h-10 max-w-44 cursor-pointer rounded-full px-3.5 text-sm font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"]}
+      class:list={["dock-ghost", "h-10 max-w-44 cursor-pointer rounded-full px-3.5 text-sm font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"]}
     ></button>
     <div
       id="style-menu"
       role="menu"
       hidden
       class:list={[face, "absolute top-[calc(100%+8px)] right-0 min-w-46 rounded-xl p-1.5"]}
-    ></div>
+    >
+      <button type="button" data-random class={item} role="menuitem">Random</button>
+      {
+        styles.map((style) => (
+          <button type="button" data-style-id={style.id} data-scheme={style.scheme} class={item} role="menuitem">{style.name}</button>
+        ))
+      }
+    </div>
   </div>
 </div>
-<Fragment set:html={labelInject} />
+<script is:inline set:html={label}></script>
+<script>
+  import { pickRandom } from "../data/resolve";
+  import type { Scheme } from "../styles/types";
+
+  const THEME_KEY = "theme";
+  const host = window as unknown as Record<string, boolean>;
+  if (!host.__styleBooted) {
+    host.__styleBooted = true;
+
+    const label = document.getElementById("style-toggle");
+    const menu = document.getElementById("style-menu");
+    const themeBtn = document.getElementById("theme-toggle");
+    const choices = menu
+      ? [...menu.querySelectorAll<HTMLButtonElement>("[data-style-id]")].map((item) => ({
+          id: item.dataset.styleId ?? "",
+          name: item.textContent ?? "",
+          scheme: (item.dataset.scheme ?? "light") as Scheme,
+        }))
+      : [];
+    const byId = new Map(choices.map((style) => [style.id, style]));
+
+    if (label && menu && themeBtn && choices.length) {
+      if ("startViewTransition" in document) document.documentElement.classList.add("vt-supported");
+
+      const readTheme = (): "light" | "dark" => {
+        try {
+          const stored = localStorage.getItem(THEME_KEY);
+          if (stored === "light" || stored === "dark") return stored;
+        } catch {}
+        return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      };
+
+      const urlWithStyle = (id: string | null) => {
+        const url = new URL(location.href);
+        if (id) url.searchParams.set("style", id);
+        else url.searchParams.delete("style");
+        const qs = url.searchParams.toString();
+        return qs ? `${url.pathname}?${qs}` : url.pathname;
+      };
+
+      const query = new URLSearchParams(location.search).get("style");
+      if (query && !byId.has(query)) history.replaceState(null, "", urlWithStyle(null));
+
+      let currentId = document.documentElement.dataset.style ?? "";
+      if (!byId.has(currentId)) currentId = choices[0].id;
+
+      const applyScheme = (style: (typeof choices)[number]) => {
+        const root = document.documentElement;
+        root.dataset.style = style.id;
+        root.dataset.scheme = style.scheme;
+        if (style.scheme === "system") {
+          const theme = readTheme();
+          root.classList.toggle("dark", theme === "dark");
+          root.dataset.theme = theme;
+        } else {
+          root.classList.remove("dark");
+          delete root.dataset.theme;
+        }
+      };
+
+      const writeTheme = (theme: "light" | "dark") => {
+        const root = document.documentElement;
+        root.classList.toggle("dark", theme === "dark");
+        root.dataset.theme = theme;
+        try {
+          localStorage.setItem(THEME_KEY, theme);
+        } catch {}
+      };
+
+      const setLabel = (name: string) => {
+        label.textContent = name;
+        label.setAttribute("aria-label", name);
+      };
+
+      const markCurrent = () => {
+        for (const item of menu.querySelectorAll<HTMLButtonElement>("[data-style-id]")) {
+          const on = item.dataset.styleId === currentId;
+          item.classList.toggle("font-bold", on);
+          if (on) item.setAttribute("aria-current", "true");
+          else item.removeAttribute("aria-current");
+        }
+      };
+
+      const closeMenu = () => {
+        menu.hidden = true;
+        label.setAttribute("aria-expanded", "false");
+      };
+
+      const show = (id: string) => {
+        const style = byId.get(id);
+        if (!style) return;
+        applyScheme(style);
+        currentId = id;
+        setLabel(style.name);
+        markCurrent();
+      };
+
+      menu.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const item = target.closest<HTMLButtonElement>("button");
+        if (!item || !menu.contains(item)) return;
+        closeMenu();
+        if (item.hasAttribute("data-random")) {
+          const next = pickRandom(choices.map((style) => style.id), currentId);
+          history.replaceState(null, "", urlWithStyle(null));
+          show(next);
+          return;
+        }
+        const id = item.dataset.styleId;
+        if (!id) return;
+        history.replaceState(null, "", urlWithStyle(id));
+        show(id);
+      });
+
+      label.addEventListener("click", () => {
+        const open = menu.hidden;
+        menu.hidden = !open;
+        label.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        if (label.contains(target) || menu.contains(target)) return;
+        closeMenu();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeMenu();
+      });
+
+      themeBtn.addEventListener("click", (event) => {
+        if (document.documentElement.dataset.scheme !== "system") return;
+        const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
+        const mouse = event as MouseEvent;
+        let x = mouse.clientX;
+        let y = mouse.clientY;
+        if (x === 0 && y === 0) {
+          const rect = themeBtn.getBoundingClientRect();
+          x = rect.left + rect.width / 2;
+          y = rect.top + rect.height / 2;
+        }
+        const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        const apply = () => writeTheme(next);
+        if (typeof document.startViewTransition !== "function") {
+          apply();
+          return;
+        }
+        const transition = document.startViewTransition(apply);
+        transition.ready.then(() => {
+          const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+          document.documentElement.animate(
+            { clipPath: next === "dark" ? clipPath : [...clipPath].reverse() },
+            {
+              duration: 520,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+              fill: "forwards",
+              pseudoElement: next === "dark" ? "::view-transition-new(root)" : "::view-transition-old(root)",
+            },
+          );
+        });
+      });
+
+      matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", (event) => {
+        if (document.documentElement.dataset.scheme !== "system") return;
+        try {
+          if (localStorage.getItem(THEME_KEY)) return;
+        } catch {
+          return;
+        }
+        writeTheme(event.matches ? "dark" : "light");
+      });
+
+      show(currentId);
+    }
+  }
+</script>

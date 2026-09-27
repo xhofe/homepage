@@ -46,6 +46,7 @@ export default defineConfig({
   ],
   shortcuts: [
     ['dock-face', 'border border-black/10 bg-white/95 text-neutral-900 shadow-lg dark:border-white/15 dark:bg-[#12121a]/95 dark:text-neutral-100 scheme-dark:border-white/15 scheme-dark:bg-[#12121a]/95 scheme-dark:text-neutral-100'],
+    ['dock-ghost', 'border border-black/15 bg-white/30 text-neutral-900 shadow-none backdrop-blur-md transition duration-200 hover:bg-white hover:shadow-lg aria-expanded:bg-white aria-expanded:shadow-lg dark:border-white/20 dark:bg-[#12121a]/30 dark:text-neutral-100 dark:hover:bg-[#12121a] dark:aria-expanded:bg-[#12121a] scheme-dark:border-white/20 scheme-dark:bg-[#12121a]/30 scheme-dark:text-neutral-100 scheme-dark:hover:bg-[#12121a] scheme-dark:aria-expanded:bg-[#12121a]'],
     ['btn', 'text-sm px-4 py-1 rounded inline-block bg-green-600 text-white cursor-pointer hover:bg-green-700 active:bg-green-800 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
     ['card-base', 'rounded-2xl border border-black/5 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-md shadow-sm'],
     ['surface', 'bg-white/60 dark:bg-white/[0.04] border border-black/5 dark:border-white/10 backdrop-blur-md'],
