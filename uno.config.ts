@@ -8,10 +8,44 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import { createRequire } from 'node:module'
+import { site } from './src/data/site'
+
+const require = createRequire(import.meta.url)
+const iconSet = (name: string) => require(`@iconify-json/${name}/icons.json`)
 
 export default defineConfig({
+  safelist: [
+    ...site.socials.map((item) => item.icon),
+    ...site.projects.map((item) => item.icon),
+    'i-ri-arrow-up-line',
+    'i-ri-arrow-right-up-line',
+    'i-ri-code-box-line',
+    'i-ri-flashlight-line',
+    'i-ri-sun-line',
+    'i-ri-moon-clear-line',
+  ],
   // class-based dark mode: toggling `dark` on <html> flips themes
+  variants: [
+    (matcher) => {
+      const prefix = 'scheme-system:'
+      if (!matcher.startsWith(prefix)) return matcher
+      return {
+        matcher: matcher.slice(prefix.length),
+        selector: (s: string) => `html[data-scheme="system"] ${s}`,
+      }
+    },
+    (matcher) => {
+      const prefix = 'scheme-dark:'
+      if (!matcher.startsWith(prefix)) return matcher
+      return {
+        matcher: matcher.slice(prefix.length),
+        selector: (s: string) => `html[data-scheme="dark"] ${s}`,
+      }
+    },
+  ],
   shortcuts: [
+    ['dock-face', 'border border-black/10 bg-white/95 text-neutral-900 shadow-lg dark:border-white/15 dark:bg-[#12121a]/95 dark:text-neutral-100 scheme-dark:border-white/15 scheme-dark:bg-[#12121a]/95 scheme-dark:text-neutral-100'],
     ['btn', 'text-sm px-4 py-1 rounded inline-block bg-green-600 text-white cursor-pointer hover:bg-green-700 active:bg-green-800 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
     ['card-base', 'rounded-2xl border border-black/5 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-md shadow-sm'],
     ['surface', 'bg-white/60 dark:bg-white/[0.04] border border-black/5 dark:border-white/10 backdrop-blur-md'],
@@ -19,6 +53,9 @@ export default defineConfig({
     ['icon-btn', 'inline-flex items-center justify-center w-10 h-10 rounded-full border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/5 backdrop-blur-md hover:bg-white dark:hover:bg-white/10 transition-colors'],
   ],
   theme: {
+    fontFamily: {
+      serif: 'Georgia, ui-serif, serif',
+    },
     colors: {
       brand: {
         DEFAULT: '#7c5cff',
@@ -41,6 +78,12 @@ export default defineConfig({
     presetIcons({
       scale: 1.2,
       warn: true,
+      collections: {
+        ri: () => iconSet('ri'),
+        jam: () => iconSet('jam'),
+        twemoji: () => iconSet('twemoji'),
+        'material-icon-theme': () => iconSet('material-icon-theme'),
+      },
     }),
     presetTypography(),
     presetWebFonts({
@@ -49,12 +92,6 @@ export default defineConfig({
           {
             name: 'Inter',
             weights: [400, 500, 600, 700, 800],
-          },
-        ],
-        serif: [
-          {
-            name: 'Noto Serif SC',
-            weights: [900],
           },
         ],
         mono: [

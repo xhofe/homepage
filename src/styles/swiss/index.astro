@@ -1,0 +1,53 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="mx-auto grid min-h-screen max-w-6xl grid-cols-1 gap-8 bg-[#f4f4f4] px-6 pt-20 pb-8 text-[#111] md:grid-cols-3">
+  <div>
+    <p class="mb-2 text-xs font-bold tracking-[0.16em] text-[#e10600] uppercase">{site.availability}</p>
+    <h1 class="text-5xl leading-none font-bold tracking-tighter">{site.name}</h1>
+    <p class="mt-4 max-w-md leading-normal">{roleLine()}</p>
+    <p class="mt-3 max-w-md leading-normal">{site.quoteLead} <strong>{site.quoteEm}</strong>.</p>
+    <p class="mt-6 mb-2 text-xs font-bold tracking-[0.16em] text-[#e10600] uppercase">{site.labels.social}</p>
+    <div class="flex flex-col items-start gap-1.5">
+      {
+        site.socials.map((item) => (
+          <a class="inline-flex items-center gap-1.5 no-underline hover:text-[#e10600]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class={item.icon} aria-hidden="true"></span>
+            {item.text ? <span>{item.text}</span> : null}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+  <div class="md:col-span-2">
+    <p class="mb-2 text-xs font-bold tracking-[0.16em] text-[#e10600] uppercase">{site.labels.projects}</p>
+    <table class="w-full border-collapse">
+      <tbody>
+        {
+          site.projects.map((project) => (
+            <tr class="border-b border-[#ddd]">
+              <td class="py-3 pr-2 align-baseline"><span class={project.icon} aria-hidden="true"></span></td>
+              <td class="py-3 pr-3 align-baseline font-semibold whitespace-nowrap">
+                <a class="no-underline hover:text-[#e10600]" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">{projectName(project.repo)}</a>
+              </td>
+              <td class="py-3 align-baseline leading-snug">{project.desc}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <figure class="md:col-span-3">
+    <img class="w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+  </figure>
+  <section class="md:col-span-3">
+    <p class="mb-2 text-xs font-bold tracking-[0.16em] text-[#e10600] uppercase">{site.labels.skills} · {site.skills.length} {site.labels.stacks}</p>
+    <img class="w-full" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+  </section>
+  <footer class="flex justify-between border-t border-[#ddd] pt-4 text-sm md:col-span-3">
+    <span>© {y} {site.name}</span>
+    <a class="js-top no-underline" href="#top">{site.labels.backToTop}</a>
+  </footer>
+</div>

@@ -1,0 +1,43 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="grid min-h-screen grid-cols-1 md:grid-cols-[40%_1fr]">
+  <aside class="bg-[#14181f] px-8 pt-20 pb-10 text-[#f2efe8] md:sticky md:top-0 md:flex md:h-screen md:flex-col">
+    <img class="size-16 rounded-full" src={site.avatar} alt={site.name} />
+    <p class="mt-6 text-xs tracking-[0.16em] text-[#d6b48a] uppercase">{site.availability}</p>
+    <h1 class="mt-2 font-serif text-[clamp(3rem,6vw,5.5rem)] leading-[0.9] font-medium">{site.name}</h1>
+    <p class="mt-4 max-w-sm leading-relaxed">{roleLine()}</p>
+    <div class="mt-6 flex flex-col items-start gap-2">
+      {
+        site.socials.map((item) => (
+          <a class="inline-flex items-center gap-1.5 no-underline hover:text-[#d6b48a]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class={item.icon} aria-hidden="true"></span>
+            {item.text ? <span>{item.text}</span> : null}
+          </a>
+        ))
+      }
+    </div>
+    <p class="mt-auto pt-10 text-sm text-[#b7ab9c]">© {y} {site.name}</p>
+  </aside>
+  <div data-scroll class="bg-[#f6f3ee] px-6 py-12 text-[#1c1917] md:h-screen md:overflow-auto md:px-12 md:pt-20">
+    <p class="font-serif text-3xl leading-snug">{site.quoteLead} <em>{site.quoteEm}</em>.</p>
+    <img class="my-8 w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+    <h2 class="mb-4 text-xs tracking-[0.16em] uppercase">{site.labels.projects}</h2>
+    {
+      site.projects.map((project) => (
+        <a class="mb-4 block border-l-2 border-[#c4b8a5] py-1 pl-4 no-underline" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+          <span class="flex items-center gap-2 font-semibold">
+            <span class={project.icon} aria-hidden="true"></span>
+            {projectName(project.repo)}
+          </span>
+          <span class="mt-1 block text-sm text-[#57534e] leading-snug">{project.desc}</span>
+        </a>
+      ))
+    }
+    <h2 class="mt-8 mb-3 text-xs tracking-[0.16em] uppercase">{site.labels.skills} · {site.skills.length} {site.labels.stacks}</h2>
+    <img class="w-full" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+    <p class="mt-8"><a class="js-top no-underline" href="#top">{site.labels.backToTop}</a></p>
+  </div>
+</div>

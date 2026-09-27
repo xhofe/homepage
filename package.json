@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:styles": "node --experimental-strip-types src/data/resolve.check.ts"
   },
   "dependencies": {
     "astro": "^7.3.5"

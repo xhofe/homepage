@@ -1,0 +1,65 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="min-h-screen bg-[#1a1f2b] px-4 pt-14 pb-6 text-[#e7ecf5]">
+  <div class="fixed top-0 left-0 right-56 z-30 flex h-9 items-center gap-4 bg-[#0e121a] px-3 text-sm text-[#d5dbe8] max-sm:right-0 max-sm:pr-44">
+    <strong>{site.name}</strong>
+    <span class="op-70">{site.availability}</span>
+  </div>
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-[1.2fr_0.8fr]">
+    <section class="overflow-hidden rounded-xl border border-[#31394a] bg-[#232a38]">
+      <header class="flex items-center gap-2 bg-[#31394a] px-3 py-2 text-xs"><span class="mr-6 inline-block size-2 rounded-full bg-[#f43f5e] shadow-[0.85rem_0_#fbbf24,1.7rem_0_#34d399]" aria-hidden="true"></span>{site.labels.about}</header>
+      <div class="flex gap-3 p-4">
+        <img class="size-12 rounded-[10px]" src={site.avatar} alt="" />
+        <div>
+          <h1 class="text-xl tracking-tight">{site.name}</h1>
+          <p class="mt-1 text-[#c5ceda] leading-snug">{roleLine()}</p>
+          <p class="mt-1 text-[#c5ceda] leading-snug">{site.quoteLead} <strong>{site.quoteEm}</strong>.</p>
+        </div>
+      </div>
+    </section>
+    <section class="overflow-hidden rounded-xl border border-[#31394a] bg-[#232a38]">
+      <header class="flex items-center gap-2 bg-[#31394a] px-3 py-2 text-xs"><span class="mr-6 inline-block size-2 rounded-full bg-[#f43f5e] shadow-[0.85rem_0_#fbbf24,1.7rem_0_#34d399]" aria-hidden="true"></span>{site.labels.social}</header>
+      <div class="flex flex-wrap gap-2 p-3">
+        {
+          site.socials.map((item) => (
+            <a class="inline-flex items-center gap-1.5 rounded-lg bg-[#1a2030] px-2 py-1.5 no-underline hover:bg-[#33415c]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+              <span class={item.icon} aria-hidden="true"></span>
+              {item.text ? <span>{item.text}</span> : null}
+            </a>
+          ))
+        }
+      </div>
+    </section>
+    <section class="overflow-hidden rounded-xl border border-[#31394a] bg-[#232a38] md:col-span-2">
+      <header class="flex items-center gap-2 bg-[#31394a] px-3 py-2 text-xs"><span class="mr-6 inline-block size-2 rounded-full bg-[#f43f5e] shadow-[0.85rem_0_#fbbf24,1.7rem_0_#34d399]" aria-hidden="true"></span>{site.labels.contributions}</header>
+      <div class="p-3"><img class="w-full" src={snakeSrc(true)} alt={site.labels.contributions} loading="lazy" /></div>
+    </section>
+    <section class="overflow-hidden rounded-xl border border-[#31394a] bg-[#232a38] md:col-span-2">
+      <header class="flex items-center gap-2 bg-[#31394a] px-3 py-2 text-xs"><span class="mr-6 inline-block size-2 rounded-full bg-[#f43f5e] shadow-[0.85rem_0_#fbbf24,1.7rem_0_#34d399]" aria-hidden="true"></span>{site.labels.projects}</header>
+      <ul class="flex list-none flex-col gap-1.5 p-2">
+        {
+          site.projects.map((project) => (
+            <li>
+              <a class="grid grid-cols-[auto_auto_1fr] items-baseline gap-2 rounded-lg bg-[#1a2030] px-2.5 py-2 no-underline hover:bg-[#33415c] max-sm:grid-cols-[auto_1fr]" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+                <span class={project.icon} aria-hidden="true"></span>
+                <strong>{projectName(project.repo)}</strong>
+                <span class="text-[#9aa6b8] max-sm:col-span-2">{project.desc}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section class="overflow-hidden rounded-xl border border-[#31394a] bg-[#232a38] md:col-span-2">
+      <header class="flex items-center gap-2 bg-[#31394a] px-3 py-2 text-xs"><span class="mr-6 inline-block size-2 rounded-full bg-[#f43f5e] shadow-[0.85rem_0_#fbbf24,1.7rem_0_#34d399]" aria-hidden="true"></span>{site.labels.skills} · {site.skills.length}</header>
+      <div class="p-3"><img class="w-full" src={skillSrc(true)} alt={site.labels.techStack} loading="lazy" /></div>
+    </section>
+  </div>
+  <footer class="mt-4 flex justify-between text-xs text-[#9aa6b8]">
+    <span>© {y} {site.name}</span>
+    <a class="js-top no-underline" href="#top">{site.labels.backToTop}</a>
+  </footer>
+</div>

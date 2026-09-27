@@ -1,0 +1,95 @@
+---
+import { projectName, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+  <div class="absolute -left-40 -top-40 size-[540px] rounded-full bg-[#c4b5fd] opacity-55 blur-[80px] dark:bg-[#6d4cff] dark:opacity-35"></div>
+  <div class="absolute top-[20%] -right-30 size-[480px] rounded-full bg-[#fbcfe8] opacity-55 blur-[80px] dark:bg-[#ff6dbf] dark:opacity-35"></div>
+  <div class="absolute bottom-[-160px] left-[30%] size-[420px] rounded-full bg-[#bae6fd] opacity-55 blur-[80px] dark:bg-[#00b3ff] dark:opacity-35"></div>
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.04)_1px,transparent_1px)] bg-size-[36px_36px] mask-[radial-gradient(ellipse_at_center,black_50%,transparent_80%)] dark:bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)]"></div>
+</div>
+<main class="relative z-1 mx-auto max-w-3xl px-5 py-10 sm:px-6 sm:py-14">
+  <header class="mb-10 flex items-center">
+    <a class="flex items-center gap-2.5 font-semibold tracking-tight no-underline" href="/">
+      <img class="size-9 rounded-full shadow-[0_0_0_2px_rgba(124,92,255,0.4)] dark:shadow-[0_0_0_2px_rgba(156,132,255,0.45)]" src={site.avatar} alt={site.name} />
+      <span>{site.name}</span>
+    </a>
+  </header>
+  <section class="mb-12">
+    <span class="inline-flex items-center gap-1.5 border border-emerald-500/30 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:border-emerald-400/30 dark:text-emerald-300">
+      <span class="relative flex size-2">
+        <span class="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
+      </span>
+      {site.availability}
+    </span>
+    <h1 class="mt-5 text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
+      {site.greeting} <span class="bg-[linear-gradient(120deg,#7c5cff,#f76cc6_60%,#ffb37c)] bg-clip-text text-transparent dark:bg-[linear-gradient(120deg,#9c84ff,#ff8ad2_60%,#ffb37c)]">{site.name}</span>.
+    </h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed op-80">
+      👨‍💻 <strong class="text-brand-600 font-semibold dark:text-brand-300">{site.role}</strong> developer /
+      <code class="rounded-md bg-brand/10 px-1.5 py-0.5 font-mono text-[0.85em] font-medium text-brand-600 dark:text-brand-300">{site.degree}</code>'s student.
+      <br class="hidden sm:block" />
+      {site.quoteLead} <strong class="text-brand-600 font-semibold dark:text-brand-300">{site.quoteEm}</strong>.
+    </p>
+    <div class="mt-7 flex flex-wrap gap-2.5">
+      {
+        site.socials.map((item) => (
+          <a class="inline-flex items-center gap-1.5 border border-black/6 rounded-full bg-black/5 px-3 py-2 no-underline transition hover:-translate-y-0.5 hover:bg-brand-600 hover:text-white dark:border-white/10 dark:bg-white/6" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class={`${item.icon} text-lg`} aria-hidden="true"></span>
+            {item.text ? <span class="text-sm font-medium">{item.text}</span> : null}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+  <section class="mb-4" aria-label={site.labels.contributions}>
+    <img class="block w-full dark:hidden" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+    <img class="hidden w-full dark:block" src={snakeSrc(true)} alt="" loading="lazy" />
+  </section>
+  <section>
+    <div class="mb-4 mt-10 flex items-center gap-2">
+      <h2 class="flex flex-1 items-center gap-2 text-2xl font-semibold tracking-tight">
+        <span class="i-ri-code-box-line text-brand-500" aria-hidden="true"></span>
+        {site.labels.projects}
+      </h2>
+      <a class="inline-flex items-center gap-1 text-sm op-50 no-underline hover:op-100" href={site.github} target="_blank" rel="noopener">
+        {site.labels.all} <span class="i-ri-arrow-right-up-line" aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+      {
+        site.projects.map((project) => (
+          <a class="group flex items-center gap-3 border border-black/6 rounded-xl bg-white/60 px-4 py-3.5 no-underline shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_30px_-12px_rgba(124,92,255,0.4)] dark:border-white/10 dark:bg-white/4 dark:shadow-none" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-2 font-semibold">
+                <span class="truncate">{projectName(project.repo)}</span>
+                <span class="i-ri-arrow-right-up-line opacity-0 transition -translate-x-1 group-hover:translate-x-0 group-hover:opacity-100" aria-hidden="true"></span>
+              </div>
+              <p class="mt-1 text-sm leading-snug op-60">{project.desc}</p>
+            </div>
+            <span class={`${project.icon} text-3xl transition group-hover:scale-110 group-hover:-rotate-6`} aria-hidden="true"></span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+  <section>
+    <div class="mb-4 mt-10 flex items-center gap-2">
+      <h2 class="flex flex-1 items-center gap-2 text-2xl font-semibold tracking-tight">
+        <span class="i-ri-flashlight-line text-amber-500" aria-hidden="true"></span>
+        {site.labels.skills}
+      </h2>
+      <span class="text-xs op-50">{site.skills.length} {site.labels.stacks}</span>
+    </div>
+    <div class="surface rounded-2xl p-4 sm:p-5">
+      <img class="block w-full dark:hidden" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+      <img class="hidden w-full dark:block" src={skillSrc(true)} alt="" loading="lazy" />
+    </div>
+  </section>
+  <footer class="mt-16 flex items-center justify-between border-t border-black/5 pt-8 text-sm op-60 dark:border-white/10">
+    <p>© {y} {site.name}</p>
+    <a class="js-top inline-flex items-center gap-1 no-underline hover:op-100" href="#top">{site.labels.backToTop} <span class="i-ri-arrow-up-line" aria-hidden="true"></span></a>
+  </footer>
+</main>

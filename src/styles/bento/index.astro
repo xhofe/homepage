@@ -1,0 +1,48 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="grid min-h-screen grid-cols-1 gap-3 bg-stone-200 p-4 pt-18 text-stone-900 sm:grid-cols-2 lg:grid-cols-4">
+  <section class="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm sm:col-span-2">
+    <img class="size-14 rounded-2xl" src={site.avatar} alt={site.name} />
+    <div>
+      <p class="text-xs font-semibold text-teal-700">{site.availability}</p>
+      <h1 class="text-3xl font-semibold tracking-tight">{site.name}</h1>
+    </div>
+  </section>
+  <section class="flex flex-col justify-center gap-2 rounded-2xl bg-white p-4 leading-normal shadow-sm sm:col-span-2">
+    <p>{roleLine()}</p>
+    <p>{site.quoteLead} <strong>{site.quoteEm}</strong>.</p>
+  </section>
+  <section class="flex flex-wrap gap-2 rounded-2xl bg-white p-4 shadow-sm sm:col-span-2 lg:col-span-4">
+    {
+      site.socials.map((item) => (
+        <a class="inline-flex items-center gap-1.5 rounded-full bg-stone-100 px-3 py-1.5 no-underline hover:bg-stone-900 hover:text-white" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+          <span class={item.icon} aria-hidden="true"></span>
+          {item.text ? <span>{item.text}</span> : null}
+        </a>
+      ))
+    }
+  </section>
+  <section class="rounded-2xl bg-white p-3 shadow-sm sm:col-span-2 lg:col-span-4">
+    <img class="w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+  </section>
+  {
+    site.projects.map((project) => (
+      <a class="flex min-h-36 flex-col gap-1.5 rounded-2xl bg-white p-4 no-underline shadow-sm hover:outline-2 hover:outline-stone-900" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+        <span class={project.icon} aria-hidden="true"></span>
+        <strong class="tracking-tight">{projectName(project.repo)}</strong>
+        <small class="text-stone-600 leading-snug">{project.desc}</small>
+      </a>
+    ))
+  }
+  <section class="rounded-2xl bg-white p-4 shadow-sm sm:col-span-2 lg:col-span-4">
+    <p class="mb-2 text-xs tracking-widest text-stone-500 uppercase">{site.labels.skills} · {site.skills.length} {site.labels.stacks}</p>
+    <img class="w-full" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+  </section>
+  <footer class="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm text-stone-600 shadow-sm sm:col-span-2 lg:col-span-4">
+    <span>© {y} {site.name}</span>
+    <a class="js-top no-underline" href="#top">{site.labels.backToTop}</a>
+  </footer>
+</div>

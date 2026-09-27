@@ -1,0 +1,37 @@
+---
+import { labelScript } from "../styles/early";
+const label = labelScript();
+const face = "dock-face";
+---
+
+<div class="fixed top-3 right-3 z-50 flex items-center gap-2">
+  <button
+    id="theme-toggle"
+    type="button"
+    aria-label="Toggle theme"
+    title="Toggle theme"
+    class:list={[face, "relative hidden h-10 w-10 cursor-pointer overflow-hidden rounded-full scheme-system:inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"]}
+  >
+    <span class="sr-only">Toggle theme</span>
+    <span class="i-ri-sun-line absolute inset-0 m-auto text-lg text-amber-500 transition duration-500 dark:rotate-90 dark:scale-[0.4] dark:opacity-0"></span>
+    <span class="i-ri-moon-clear-line absolute inset-0 m-auto text-lg text-indigo-300 opacity-0 -rotate-90 scale-[0.4] transition duration-500 dark:rotate-0 dark:scale-100 dark:opacity-100"></span>
+  </button>
+  <div class="relative">
+    <button
+      id="style-toggle"
+      type="button"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-controls="style-menu"
+      aria-label="Style"
+      class:list={[face, "h-10 max-w-44 cursor-pointer rounded-full px-3.5 text-sm font-semibold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"]}
+    ></button>
+    <div
+      id="style-menu"
+      role="menu"
+      hidden
+      class:list={[face, "absolute top-[calc(100%+8px)] right-0 min-w-46 rounded-xl p-1.5"]}
+    ></div>
+  </div>
+</div>
+<Fragment set:html={`<script>${label}</script>`} />

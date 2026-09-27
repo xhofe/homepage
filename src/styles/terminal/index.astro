@@ -1,0 +1,70 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="mx-auto min-h-screen max-w-3xl bg-[#07110c] px-4 pt-18 pb-8 font-mono text-[#b6f7c9]">
+  <div class="overflow-hidden rounded-[10px] border border-[#1d3b2a]">
+    <div class="flex items-center gap-3 border-b border-[#1d3b2a] bg-[#102117] px-3.5 py-2 text-xs text-[#8fbf9e]">
+      <span class="tracking-widest text-[#3ddc84]" aria-hidden="true">● ● ●</span>
+      <span>andy@homepage — bash</span>
+    </div>
+    <div class="bg-[#0a1610] px-4 py-5">
+      <section>
+        <p class="text-[#d8ffe4]"><span class="text-[#3ddc84]">❯</span> whoami</p>
+        <p class="mt-1.5 text-[#9dccae]">
+          <img class="mr-2 inline-block size-6 rounded-full align-middle" src={site.avatar} alt="" />
+          <strong class="text-[#eafff1]">{site.name}</strong> — {site.availability}
+        </p>
+      </section>
+      <section class="mt-4">
+        <p class="text-[#d8ffe4]"><span class="text-[#3ddc84]">❯</span> cat bio.txt</p>
+        <div class="mt-1.5 text-[#9dccae] leading-relaxed">
+          <p>{roleLine()}</p>
+          <p class="mt-1">{site.quoteLead} {site.quoteEm}.</p>
+        </div>
+      </section>
+      <section class="mt-4">
+        <p class="text-[#d8ffe4]"><span class="text-[#3ddc84]">❯</span> ls ~/social</p>
+        <div class="mt-2 flex flex-wrap gap-2.5">
+          {
+            site.socials.map((item) => (
+              <a class="inline-flex items-center gap-1.5 text-[#7dffa8] no-underline hover:underline" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+                <span class={item.icon} aria-hidden="true"></span>
+                {item.text ? <span>{item.text}</span> : null}
+              </a>
+            ))
+          }
+        </div>
+      </section>
+      <section class="mt-4">
+        <p class="text-[#d8ffe4]"><span class="text-[#3ddc84]">❯</span> cat contributions.svg</p>
+        <img class="mt-2 w-full bg-[#07110c]" src={snakeSrc(true)} alt={site.labels.contributions} loading="lazy" />
+      </section>
+      <section class="mt-4">
+        <p class="text-[#d8ffe4]"><span class="text-[#3ddc84]">❯</span> ls ~/projects</p>
+        <ul class="mt-2 flex list-none flex-col gap-2 p-0">
+          {
+            site.projects.map((project) => (
+              <li>
+                <a class="grid grid-cols-[auto_auto_1fr] items-baseline gap-x-2 gap-y-1 text-[#7dffa8] no-underline max-sm:grid-cols-[auto_1fr]" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+                  <span class={project.icon} aria-hidden="true"></span>
+                  <span class="text-[#eafff1] hover:underline">{projectName(project.repo)}</span>
+                  <span class="text-sm text-[#6f977c] max-sm:col-span-2">{project.desc}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+      <section class="mt-4">
+        <p class="text-[#d8ffe4]"><span class="text-[#3ddc84]">❯</span> skills --icons</p>
+        <img class="mt-2 w-full bg-[#07110c]" src={skillSrc(true)} alt={site.labels.techStack} loading="lazy" />
+      </section>
+      <footer class="mt-6 flex justify-between gap-4 border-t border-dashed border-[#1d3b2a] pt-3 text-xs text-[#6f977c]">
+        <span>© {y} {site.name}</span>
+        <a class="js-top inline-flex items-center gap-1 text-[#7dffa8] no-underline" href="#top">{site.labels.backToTop} <span class="i-ri-arrow-up-line" aria-hidden="true"></span></a>
+      </footer>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+---
+
+<div class="mx-auto min-h-screen max-w-4xl bg-[#f7f1e5] px-5 pt-18 pb-8 text-[#1a1612]">
+  <header class="border-t-[3px] border-b border-[#1a1612] py-3 text-center">
+    <p class="text-xs tracking-[0.18em] uppercase">{site.availability} · {y}</p>
+    <h1 class="font-serif text-[clamp(3rem,8vw,5.5rem)] leading-none font-medium tracking-tight">{site.name}</h1>
+    <p class="mt-1 border-t border-[#1a1612] pt-1.5 text-sm">{roleLine()}</p>
+  </header>
+  <img class="my-4 w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+  <div class="columns-1 gap-7 md:columns-3">
+    <p class="mb-4 font-serif text-2xl leading-snug">{site.quoteLead} <strong>{site.quoteEm}</strong>.</p>
+    <p class="mb-1 text-xs tracking-[0.14em] uppercase">{site.labels.social}</p>
+    <div class="mb-4 flex flex-col gap-1">
+      {
+        site.socials.map((item) => (
+          <a class="inline-flex items-center gap-1.5 no-underline hover:underline" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class={item.icon} aria-hidden="true"></span>
+            {item.text || item.link.replace(/^https?:\/\//, "")}
+          </a>
+        ))
+      }
+    </div>
+    <h2 class="mb-2 text-xs tracking-[0.14em] uppercase">{site.labels.projects}</h2>
+    {
+      site.projects.map((project) => (
+        <article class="mb-4 break-inside-avoid">
+          <h3 class="flex items-center gap-1.5 font-serif text-lg font-semibold">
+            <span class={project.icon} aria-hidden="true"></span>
+            <a class="no-underline hover:underline" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">{projectName(project.repo)}</a>
+          </h3>
+          <p class="text-sm leading-snug">{project.desc}</p>
+        </article>
+      ))
+    }
+  </div>
+  <section class="mt-6 border-t-[3px] border-[#1a1612] pt-3">
+    <h2 class="mb-2 text-xs tracking-[0.14em] uppercase">{site.labels.skills} <span class="font-medium tracking-normal normal-case">{site.skills.length} {site.labels.stacks}</span></h2>
+    <img class="w-full" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+  </section>
+  <footer class="mt-4 flex justify-between border-t border-[#1a1612] pt-2 text-sm">
+    <span>© {y} {site.name}</span>
+    <a class="js-top no-underline" href="#top">{site.labels.backToTop}</a>
+  </footer>
+</div>
