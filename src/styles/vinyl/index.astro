@@ -1,0 +1,100 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+const half = Math.ceil(site.projects.length / 2);
+const sides = [
+  { name: "Side A", start: 0, tracks: site.projects.slice(0, half) },
+  { name: "Side B", start: half, tracks: site.projects.slice(half) },
+];
+const kicker = "m-0 text-[11px] font-semibold tracking-[0.3em] uppercase text-[var(--mute)]";
+---
+
+<div class="min-h-screen overflow-x-clip bg-[var(--bg)] text-[var(--ink)] [--bg:#efe9df] [--ink:#1b1a17] [--mute:rgba(27,26,23,.6)] [--line:rgba(27,26,23,.14)] dark:[--bg:#131211] dark:[--ink:#ede7dc] dark:[--mute:rgba(237,231,220,.55)] dark:[--line:rgba(237,231,220,.13)] selection:bg-[#e4572e] selection:text-[#1b1a17]">
+  <div class="mx-auto grid max-w-6xl gap-16 px-6 pt-24 pb-16 lg:grid-cols-2 lg:gap-12 lg:pt-28">
+    <div class="group relative aspect-square w-[76%] max-w-[460px] self-start lg:sticky lg:top-24">
+      <div class="absolute top-[3%] left-[16%] aspect-square h-[94%] transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:translate-x-[20%]" aria-hidden="true">
+        <div class="absolute inset-0 animate-spin rounded-full bg-[#0d0d0d] shadow-[0_20px_40px_-12px_rgba(0,0,0,.5)] dark:shadow-[0_0_0_1px_rgba(237,231,220,.12),0_20px_40px_-12px_rgba(0,0,0,.6)] ![animation-duration:14s] [background-image:repeating-radial-gradient(circle,#0d0d0d_0_2px,#1d1d1d_3px_4px)] motion-reduce:animate-none">
+          <div class="absolute inset-[33%] flex items-center justify-center overflow-hidden rounded-full bg-[#e4572e]">
+            <img class="size-[70%] rounded-full" src={site.avatar} alt="" />
+            <span class="absolute size-[7%] rounded-full bg-[var(--bg)]"></span>
+          </div>
+        </div>
+        <div class="absolute inset-0 rounded-full [background-image:conic-gradient(from_20deg,transparent_0_30deg,rgba(255,255,255,.1)_55deg,transparent_80deg_210deg,rgba(255,255,255,.1)_235deg,transparent_260deg)]"></div>
+      </div>
+      <div class="relative z-10 flex h-full flex-col justify-between bg-[#e4572e] p-[7%] text-[#1b1a17] shadow-[0_30px_50px_-20px_rgba(0,0,0,.45)]">
+        <div class="flex justify-between text-[11px] font-semibold tracking-[0.3em] uppercase">
+          <span>LP · {y}</span>
+          <span>33⅓</span>
+        </div>
+        <h1 class="m-0 text-[clamp(2.8rem,9vw,5.6rem)] leading-[0.85] font-black tracking-[-0.05em] break-words">{site.name}</h1>
+        <p class="m-0 text-sm font-semibold">{site.greeting} {site.name.split(" ")[0]} — {site.role}</p>
+      </div>
+    </div>
+
+    <div class="lg:pt-4">
+      <p class={kicker}>{site.availability}</p>
+      <p class="m-0 mt-4 max-w-lg font-serif text-[clamp(1.4rem,2.6vw,2rem)] leading-snug italic">{site.quoteLead} <span class="text-[#e4572e]">{site.quoteEm}</span>.</p>
+      <p class="m-0 mt-4 text-sm text-[var(--mute)]">{roleLine()}</p>
+
+      {
+        sides.map((side) => (
+          <section class="mt-14">
+            <h2 class:list={[kicker, "border-b border-[var(--line)] pb-3"]}>{side.name}</h2>
+            <ol class="m-0 list-none p-0">
+              {side.tracks.map((project, index) => (
+                <li>
+                  <a class="group/track grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-3 border-b border-[var(--line)] py-4 text-inherit no-underline" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+                    <span class="relative font-mono text-xs text-[var(--mute)]">
+                      <span class="transition-opacity group-hover/track:opacity-0">{String(side.start + index + 1).padStart(2, "0")}</span>
+                      <span class="i-ri-play-fill absolute top-0 left-0 text-base text-[#e4572e] opacity-0 transition-opacity group-hover/track:opacity-100" aria-hidden="true"></span>
+                    </span>
+                    <span class="min-w-0">
+                      <span class="block text-lg font-semibold tracking-tight transition-colors group-hover/track:text-[#e4572e]">{projectName(project.repo)}</span>
+                      <span class="mt-1 block text-sm leading-snug text-[var(--mute)]">{project.desc}</span>
+                    </span>
+                    <span class={`${project.icon} text-lg`} aria-hidden="true"></span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="mx-auto grid max-w-6xl gap-12 border-t border-[var(--line)] px-6 py-16 md:grid-cols-[16rem_1fr]">
+    <section>
+      <h2 class={kicker}>Credits</h2>
+      <ul class="m-0 mt-5 list-none space-y-2.5 p-0">
+        {
+          site.socials.map((item) => (
+            <li>
+              <a class="inline-flex items-center gap-3 text-inherit no-underline transition-colors hover:text-[#e4572e]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+                <span class={item.icon} aria-hidden="true"></span>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <div class="grid gap-12">
+      <section>
+        <h2 class={kicker}>{site.labels.skills} · {site.skills.length} {site.labels.stacks}</h2>
+        <img class="mt-5 block w-full dark:hidden" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+        <img class="mt-5 hidden w-full dark:block" src={skillSrc(true)} alt="" loading="lazy" />
+      </section>
+      <section>
+        <h2 class={kicker}>{site.labels.contributions}</h2>
+        <img class="mt-5 block w-full dark:hidden" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+        <img class="mt-5 hidden w-full dark:block" src={snakeSrc(true)} alt="" loading="lazy" />
+      </section>
+    </div>
+  </div>
+
+  <footer class="mx-auto flex max-w-6xl justify-between border-t border-[var(--line)] px-6 py-6 text-xs text-[var(--mute)]">
+    <span>℗ © {y} {site.name}</span>
+    <a class="js-top text-inherit no-underline hover:text-[#e4572e]" href="#top">{site.labels.backToTop} ↑</a>
+  </footer>
+</div>

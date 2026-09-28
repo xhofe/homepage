@@ -1,0 +1,115 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+const cell = "border-[#cfe3ff]/45";
+const tag = "text-[10px] tracking-[0.3em] uppercase text-[#cfe3ff]/60";
+---
+
+<div class="min-h-screen bg-[#123d6a] p-3 font-mono text-[#eaf3ff] [background-image:linear-gradient(rgba(207,227,255,.13)_1px,transparent_1px),linear-gradient(90deg,rgba(207,227,255,.13)_1px,transparent_1px),linear-gradient(rgba(207,227,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(207,227,255,.05)_1px,transparent_1px)] [background-size:120px_120px,120px_120px,24px_24px,24px_24px] selection:bg-[#ff8a65] selection:text-[#123d6a] md:p-6">
+  <div class:list={["border p-1.5", cell]}>
+    <div class:list={["border bg-[#123d6a]/40", cell]}>
+      <div class:list={["flex justify-between border-b py-2 pr-36 pl-4", cell, tag]}>
+        <span>{site.availability}</span>
+        <span>Rev. <b class="font-normal text-[#ff8a65]">{y}</b></span>
+      </div>
+
+      <header class="grid gap-12 px-5 py-14 md:grid-cols-[1fr_auto] md:px-10 md:py-20">
+        <div class="min-w-0">
+          <p class={tag}>{site.greeting}</p>
+          <div class="mt-3 inline-block max-w-full">
+            <h1 class="text-[clamp(2.6rem,9vw,7rem)] leading-[0.9] font-medium tracking-tight uppercase">{site.name}</h1>
+            <div class="mt-4 flex items-center gap-3 text-[11px] tracking-[0.3em] text-[#cfe3ff]/80 uppercase">
+              <span class="h-3 w-px bg-current" aria-hidden="true"></span>
+              <span class="h-px flex-1 bg-current" aria-hidden="true"></span>
+              <span>{site.role}</span>
+              <span class="h-px flex-1 bg-current" aria-hidden="true"></span>
+              <span class="h-3 w-px bg-current" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="mt-12 max-w-xl">
+            <p class={tag}>Notes:</p>
+            <ol class="mt-3 list-none space-y-2 p-0 text-sm leading-relaxed">
+              <li class="flex gap-3"><span class="text-[#cfe3ff]/60">1.</span><span>{roleLine()}</span></li>
+              <li class="flex gap-3"><span class="text-[#cfe3ff]/60">2.</span><span>{site.quoteLead} <b class="font-medium text-[#ff8a65]">{site.quoteEm}</b>.</span></li>
+            </ol>
+          </div>
+        </div>
+        <figure class="m-0 self-center justify-self-center">
+          <div class="relative size-52 md:size-60">
+            <span class="absolute top-1/2 -left-6 -right-6 h-px bg-[#cfe3ff]/40" aria-hidden="true"></span>
+            <span class="absolute left-1/2 -top-6 -bottom-6 w-px bg-[#cfe3ff]/40" aria-hidden="true"></span>
+            <span class="absolute -inset-3 rounded-full border border-dashed border-[#cfe3ff]/50" aria-hidden="true"></span>
+            <img class="relative size-full rounded-full border border-[#cfe3ff]/70 bg-[#0d2f55] object-cover grayscale" src={site.avatar} alt={site.name} />
+          </div>
+          <figcaption class:list={["mt-8 text-center", tag]}>Detail A · {site.degree}</figcaption>
+        </figure>
+      </header>
+
+      <section class:list={["border-t", cell]}>
+        <h2 class:list={["m-0 border-b px-5 py-2 font-normal md:px-10", cell, tag]}>Parts list — {site.labels.projects}</h2>
+        <div class:list={["hidden grid-cols-[4rem_14rem_1fr_3rem] border-b px-10 py-2 md:grid", cell, tag]}>
+          <span>Item</span><span>Part no.</span><span>Description</span><span class="text-right">Ref</span>
+        </div>
+        {
+          site.projects.map((project, index) => (
+            <a class:list={["group grid grid-cols-[3rem_1fr_2rem] items-baseline gap-x-3 border-b px-5 py-3 text-inherit no-underline transition-colors last:border-b-0 hover:bg-[#cfe3ff]/10 md:grid-cols-[4rem_14rem_1fr_3rem] md:gap-x-0 md:px-10", cell]} href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+              <span class="text-xs text-[#cfe3ff]/60">{String(index + 1).padStart(3, "0")}</span>
+              <span class="truncate font-medium uppercase group-hover:text-[#ff8a65]">{projectName(project.repo)}</span>
+              <span class="col-start-2 row-start-2 mt-1 text-xs leading-relaxed text-[#cfe3ff]/75 md:col-start-auto md:row-start-auto md:mt-0 md:pr-6">{project.desc}</span>
+              <span class={`${project.icon} col-start-3 row-start-1 justify-self-end md:col-start-auto md:row-start-auto`} aria-hidden="true"></span>
+            </a>
+          ))
+        }
+      </section>
+
+      <section class:list={["grid border-t md:grid-cols-[18rem_1fr]", cell]}>
+        <div class:list={["border-b p-5 md:border-b-0 md:border-r md:p-8", cell]}>
+          <h2 class:list={["m-0 font-normal", tag]}>Connections</h2>
+          <ul class="mt-4 list-none space-y-1 p-0">
+            {
+              site.socials.map((item) => (
+                <li>
+                  <a class="flex items-center gap-3 py-1 text-sm text-inherit no-underline hover:text-[#ff8a65]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+                    <span class="inline-flex size-7 items-center justify-center border border-[#cfe3ff]/45">
+                      <span class={item.icon} aria-hidden="true"></span>
+                    </span>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="grid gap-10 p-5 md:p-8">
+          <figure class="m-0">
+            <img class="block w-full grayscale brightness-150 mix-blend-screen" src={snakeSrc(true)} alt={site.labels.contributions} loading="lazy" />
+            <figcaption class:list={["mt-3", tag]}>Fig. 1 — {site.labels.contributions}</figcaption>
+          </figure>
+          <figure class="m-0">
+            <img class="block w-full grayscale brightness-150 mix-blend-screen transition duration-300 hover:grayscale-0 hover:brightness-100 hover:mix-blend-normal" src={skillSrc(true)} alt={site.labels.techStack} loading="lazy" />
+            <figcaption class:list={["mt-3", tag]}>Fig. 2 — {site.labels.skills} · {site.skills.length} {site.labels.stacks}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <footer class:list={["grid grid-cols-2 border-t md:grid-cols-[1fr_repeat(3,10rem)]", cell]}>
+        <div class:list={["col-span-2 border-b px-5 py-3 md:col-span-1 md:border-b-0 md:border-r md:px-10", cell]}>
+          <p class:list={["m-0", tag]}>Drawn by</p>
+          <p class="m-0 mt-1 text-sm uppercase">© {y} {site.name}</p>
+        </div>
+        <div class:list={["border-r px-5 py-3", cell]}>
+          <p class:list={["m-0", tag]}>Scale</p>
+          <p class="m-0 mt-1 text-sm">1 : 1</p>
+        </div>
+        <div class:list={["px-5 py-3 md:border-r", cell]}>
+          <p class:list={["m-0", tag]}>Sheet</p>
+          <p class="m-0 mt-1 text-sm">01 / 01</p>
+        </div>
+        <a class:list={["js-top col-span-2 flex items-center justify-between border-t px-5 py-3 text-sm text-inherit no-underline hover:bg-[#ff8a65] hover:text-[#123d6a] md:col-span-1 md:border-t-0", cell]} href="#top">
+          {site.labels.backToTop}
+          <span class="i-ri-arrow-up-line" aria-hidden="true"></span>
+        </a>
+      </footer>
+    </div>
+  </div>
+</div>

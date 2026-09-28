@@ -1,0 +1,80 @@
+---
+import { projectName, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+const rule = "my-5 border-t border-dashed border-[#1c1b19]/50";
+const row = "flex justify-between gap-4";
+const host = site.github.replace(/^https?:\/\//, "");
+---
+
+<div class="min-h-screen bg-[#dcd7cc] px-4 py-16 text-[#1c1b19] [background-image:radial-gradient(rgba(0,0,0,.06)_1px,transparent_1px)] [background-size:6px_6px] md:py-24">
+  <div class="mx-auto max-w-[420px] [filter:drop-shadow(0_24px_28px_rgba(40,30,10,.18))] md:rotate-[-0.8deg]">
+    <div class="h-[7px] [background-image:conic-gradient(from_135deg_at_50%_0,#fbfaf6_90deg,transparent_0)] [background-size:14px_7px]" aria-hidden="true"></div>
+    <div class="bg-[#fbfaf6] px-6 py-8 font-mono text-sm leading-relaxed sm:px-8">
+      <header class="text-center">
+        <img class="mx-auto size-14 rounded-full grayscale contrast-125" src={site.avatar} alt="" />
+        <h1 class="m-0 mt-4 text-2xl font-semibold tracking-[0.25em] uppercase">{site.name}</h1>
+        <p class="m-0 mt-1 text-xs uppercase">{site.availability}</p>
+        <a class="text-xs text-inherit underline-offset-4 hover:underline" href={site.github} target="_blank" rel="noopener">{host}</a>
+      </header>
+
+      <hr class={rule} />
+      <div class={row}><span>ROLE</span><span>{site.role}</span></div>
+      <div class={row}><span>DEGREE</span><span>{site.degree}</span></div>
+      <div class={row}><span>DATE</span><span>{y}</span></div>
+      <hr class={rule} />
+
+      <div class:list={[row, "text-xs opacity-60"]}><span>QTY&nbsp;&nbsp;{site.labels.projects.toUpperCase()}</span><span>REF</span></div>
+      <ul class="m-0 mt-2 list-none p-0">
+        {
+          site.projects.map((project) => (
+            <li>
+              <a class="-mx-2 block px-2 py-1.5 text-inherit no-underline hover:bg-[#1c1b19] hover:text-[#fbfaf6]" href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+                <span class="flex items-center gap-3">
+                  <span>1x</span>
+                  <span class="min-w-0 flex-1 truncate font-semibold uppercase">{projectName(project.repo)}</span>
+                  <span class={`${project.icon} shrink-0 grayscale`} aria-hidden="true"></span>
+                </span>
+                <span class="block pl-8 text-xs leading-snug opacity-70">{project.desc}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <hr class={rule} />
+      <div class={row}><span>ITEMS</span><span>{site.projects.length}</span></div>
+      <div class={row}><span>{site.labels.stacks.toUpperCase()}</span><span>{site.skills.length}</span></div>
+      <div class:list={[row, "mt-2 border-y-2 border-double border-[#1c1b19] py-2 text-lg font-semibold"]}><span>TOTAL</span><span>{site.quoteEm.toUpperCase()}</span></div>
+
+      <p class="m-0 mt-6 text-xs opacity-60">{site.labels.skills.toUpperCase()}</p>
+      <img class="mt-2 block w-full grayscale contrast-125" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+      <p class="m-0 mt-6 text-xs opacity-60">{site.labels.contributions.toUpperCase()}</p>
+      <img class="mt-2 block w-full grayscale contrast-150" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+
+      <hr class={rule} />
+      <p class="m-0 text-xs opacity-60">PAID VIA</p>
+      <ul class="m-0 mt-2 list-none p-0">
+        {
+          site.socials.map((item) => (
+            <li>
+              <a class="-mx-2 flex items-center gap-3 px-2 py-1 text-inherit no-underline hover:bg-[#1c1b19] hover:text-[#fbfaf6]" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+                <span class={`${item.icon} grayscale`} aria-hidden="true"></span>
+                <span class="flex-1 uppercase">{item.label}</span>
+                <span class="i-ri-arrow-right-up-line" aria-hidden="true"></span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <hr class={rule} />
+
+      <p class="m-0 text-center text-xs leading-relaxed uppercase">* {site.quoteLead} <b>{site.quoteEm}</b>. *</p>
+      <div class="mt-6 h-14 [background-image:repeating-linear-gradient(90deg,#1c1b19_0_2px,transparent_2px_4px,#1c1b19_4px_5px,transparent_5px_8px,#1c1b19_8px_11px,transparent_11px_12px,#1c1b19_12px_13px,transparent_13px_16px,#1c1b19_16px_18px,transparent_18px_23px),repeating-linear-gradient(90deg,transparent_0_7px,#1c1b19_7px_8px,transparent_8px_17px)]" aria-hidden="true"></div>
+      <p class="m-0 mt-2 text-center text-xs tracking-[0.4em]">© {y} {site.name.toUpperCase()}</p>
+      <p class="m-0 mt-5 text-center text-xs">
+        <a class="js-top text-inherit underline-offset-4 hover:underline" href="#top">↑ {site.labels.backToTop.toUpperCase()}</a>
+      </p>
+    </div>
+    <div class="h-[7px] [background-image:conic-gradient(from_135deg_at_50%_0,#fbfaf6_90deg,transparent_0)] [background-size:14px_7px] rotate-180" aria-hidden="true"></div>
+  </div>
+</div>
