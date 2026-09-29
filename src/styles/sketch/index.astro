@@ -1,0 +1,119 @@
+---
+import { projectName, roleLine, site, skillSrc, snakeSrc, year } from "../../data/site";
+const y = year();
+const rough = "[filter:url(#sketch-rough)]";
+const shapes = [
+  "rounded-[255px_15px_225px_15px/15px_225px_15px_255px]",
+  "rounded-[15px_255px_15px_225px/225px_15px_255px_15px]",
+  "rounded-[225px_25px_205px_20px/20px_205px_25px_225px]",
+];
+const fills = ["bg-[#fff1a8]", "bg-[#ffd9cf]", "bg-[#cfeedf]", "bg-[#d7e6ff]"];
+const tilts = ["-rotate-1", "rotate-[0.8deg]", "rotate-[-0.4deg]", "rotate-[1.3deg]"];
+const hatch = "[background-image:repeating-linear-gradient(-45deg,#2b2a33_0_1.5px,transparent_1.5px_6px)]";
+const heading = "m-0 inline-block font-hand text-5xl font-bold";
+const squiggle = "M2 7 C 15 2, 25 12, 38 7 S 62 2, 75 7 S 99 12, 112 7 S 136 2, 149 7 S 173 12, 198 6";
+---
+
+<div class="min-h-screen overflow-x-clip bg-[#fbf6ea] font-note text-lg text-[#2b2a33] selection:bg-[#ffe66d]">
+  <svg class="absolute size-0" aria-hidden="true">
+    <filter id="sketch-rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="7" />
+      <feDisplacementMap in="SourceGraphic" scale="4" />
+    </filter>
+  </svg>
+
+  <div class="mx-auto max-w-5xl px-6 pt-24 pb-12">
+    <header class="grid items-center gap-14 md:grid-cols-[1fr_auto]">
+      <div class="min-w-0">
+        <span class="relative inline-block -rotate-2 px-4 py-1 font-hand text-2xl">
+          <span class:list={["absolute inset-0 border-2 border-[#2b2a33] bg-[#cfeedf]", shapes[0], rough]} aria-hidden="true"></span>
+          <span class="relative">{site.availability}</span>
+        </span>
+        <h1 class="m-0 mt-6 font-hand text-[clamp(3.6rem,10vw,6.8rem)] leading-[0.95] font-bold">
+          {site.greeting}<br />
+          <span class="[box-decoration-break:clone] bg-no-repeat px-1 [background-image:linear-gradient(100deg,transparent_1%,#ffe66d_2%,#ffe66d_97%,transparent_98%)] [background-position:0_85%] [background-size:100%_42%]">{site.name}</span>
+        </h1>
+        <p class="m-0 mt-5 text-xl">{roleLine()}</p>
+        <p class="m-0 mt-3 max-w-lg text-xl leading-relaxed">
+          {site.quoteLead}
+          <span class="relative inline-block"><span class:list={["absolute -inset-x-2 -inset-y-1 -rotate-6 rounded-[48%_52%_45%_55%/55%_45%_55%_45%] border-2 border-[#ff6b5b]", rough]} aria-hidden="true"></span>{site.quoteEm}</span>.
+        </p>
+      </div>
+
+      <figure class="relative m-0 justify-self-center">
+        <svg class="absolute -top-8 -left-10 size-10 -rotate-12 text-[#ff6b5b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2 L14.5 9 L22 9.5 L16 14 L18 21.5 L12 17 L6 21.5 L8 14 L2 9.5 L9.5 9 Z" />
+        </svg>
+        <div class="relative rotate-3 bg-white p-3 pb-14 shadow-[0_14px_28px_-12px_rgba(43,42,51,.45)]">
+          <span class="absolute -top-3 left-1/2 h-7 w-24 -translate-x-1/2 -rotate-3 bg-[#ffe66d]/75" aria-hidden="true"></span>
+          <img class="block size-52 bg-[#f1ebdd] object-cover md:size-56" src={site.avatar} alt={site.name} />
+          <figcaption class="absolute inset-x-0 bottom-3 text-center font-hand text-2xl">{site.role} · {site.degree}</figcaption>
+        </div>
+        <svg class="absolute -bottom-10 -left-16 hidden h-12 w-20 text-[#2b2a33] md:block" viewBox="0 0 80 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 44 C 20 20, 44 10, 70 18" />
+          <path d="M58 9 L71 18 L59 27" />
+        </svg>
+      </figure>
+    </header>
+
+    <nav class="mt-14 flex flex-wrap gap-3" aria-label={site.labels.social}>
+      {
+        site.socials.map((item, index) => (
+          <a class="group relative inline-flex items-center gap-2 px-4 py-1.5 text-inherit no-underline transition-transform hover:-translate-y-0.5" href={item.link} target={item.link.startsWith("mailto:") ? undefined : "_blank"} rel={item.link.startsWith("mailto:") ? undefined : "noopener"}>
+            <span class:list={["absolute inset-0 border-2 border-[#2b2a33] bg-white transition-colors group-hover:bg-[#ffe66d]", shapes[index % shapes.length], rough]} aria-hidden="true"></span>
+            <span class={`${item.icon} relative`} aria-hidden="true"></span>
+            <span class="relative">{item.label}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <section class="mt-24">
+      <h2 class={heading}>{site.labels.projects}</h2>
+      <svg class="block h-3 w-44 text-[#ff6b5b]" viewBox="0 0 200 12" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d={squiggle} /></svg>
+      <div class="mt-10 grid gap-8 sm:grid-cols-2">
+        {
+          site.projects.map((project, index) => (
+            <a class:list={["group relative block p-6 text-inherit no-underline transition-transform duration-300 hover:-translate-y-1 hover:rotate-0", tilts[index % tilts.length]]} href={`https://github.com/${project.repo}`} target="_blank" rel="noopener">
+              <span class:list={["absolute inset-0 translate-x-2 translate-y-2.5 opacity-60 transition-transform duration-300 group-hover:translate-x-3 group-hover:translate-y-3.5", shapes[index % shapes.length], hatch, rough]} aria-hidden="true"></span>
+              <span class:list={["absolute inset-0 border-2 border-[#2b2a33]", shapes[index % shapes.length], fills[index % fills.length], rough]} aria-hidden="true"></span>
+              <span class="relative flex items-center gap-2 font-hand text-3xl font-bold">
+                <span class={project.icon} aria-hidden="true"></span>
+                {projectName(project.repo)}
+              </span>
+              <span class="relative mt-2 block leading-snug">{project.desc}</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="mt-24 grid gap-14 md:grid-cols-2">
+      <div>
+        <h2 class={heading}>{site.labels.skills}</h2>
+        <svg class="block h-3 w-32 text-[#6fb8a0]" viewBox="0 0 200 12" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d={squiggle} /></svg>
+        <div class="relative mt-8 -rotate-1 p-5">
+          <span class:list={["absolute inset-0 border-2 border-[#2b2a33] bg-white", shapes[1], rough]} aria-hidden="true"></span>
+          <img class="relative block w-full" src={skillSrc(false)} alt={site.labels.techStack} loading="lazy" />
+        </div>
+        <p class="m-0 mt-3 font-hand text-2xl">{site.skills.length} {site.labels.stacks}</p>
+      </div>
+      <div>
+        <h2 class={heading}>{site.labels.contributions}</h2>
+        <svg class="block h-3 w-40 text-[#7aa7f0]" viewBox="0 0 200 12" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d={squiggle} /></svg>
+        <div class="relative mt-8 rotate-1 p-5">
+          <span class:list={["absolute inset-0 border-2 border-[#2b2a33] bg-white", shapes[2], rough]} aria-hidden="true"></span>
+          <img class="relative block w-full" src={snakeSrc(false)} alt={site.labels.contributions} loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-24 flex items-center justify-between font-hand text-2xl">
+      <span>© {y} {site.name}</span>
+      <a class="js-top inline-flex items-center gap-1 text-inherit underline decoration-[#ff6b5b] decoration-wavy underline-offset-6 hover:text-[#ff6b5b]" href="#top">
+        {site.labels.backToTop}
+        <span class="i-ri-arrow-up-line" aria-hidden="true"></span>
+      </a>
+    </footer>
+  </div>
+</div>
